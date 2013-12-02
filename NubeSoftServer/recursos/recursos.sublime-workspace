@@ -1,0 +1,235 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"i",
+				"include"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "procesoCliente.c",
+			"settings":
+			{
+				"buffer_size": 1118,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/roger/.config/sublime-text-2/Packages/User/procesoCliente.sublime-build",
+			"settings":
+			{
+				"buffer_size": 137,
+				"line_ending": "Unix",
+				"name": "untitled.sublime-build"
+			}
+		}
+	],
+	"build_system": "Packages/User/procesoCliente.sublime-build",
+	"command_palette":
+	{
+		"height": 117.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/roger/Escritorio/Sistemas Operativos/threads/cancel_sync.c",
+		"/home/roger/Escritorio/Sistemas Operativos/threads/once.c",
+		"/home/roger/Documentos/ProyectoParcialSistemasOperativos/NubeSoftServer/recursos/vector_test.c",
+		"/home/roger/Documentos/ProyectoParcialSistemasOperativos/NubeSoftServer/recursos/vector.c",
+		"/home/roger/Documentos/ProyectoParcialSistemasOperativos/NubeSoftServer/recursos/vector.h",
+		"/home/roger/Escritorio/Sistemas Operativos/procesos/sck_servidor.c",
+		"/home/roger/Escritorio/Sistemas Operativos/procesos/sck_cliente.c",
+		"/home/roger/Escritorio/Sistemas Operativos/Capitulo2/mem_client.c",
+		"/home/roger/Escritorio/Sistemas Operativos/Capitulo2/simple_fork.c",
+		"/home/roger/Escritorio/Sistemas Operativos/Capitulo2/simple_exec.c",
+		"/home/roger/Escritorio/Sistemas Operativos/Capitulo2/pipe_unix.c",
+		"/home/roger/Escritorio/Sistemas Operativos/Capitulo2/mem_server.c",
+		"/home/roger/Escritorio/Sistemas Operativos/Capitulo2/pipe_unix",
+		"/usr/share/application/sublime.desktop",
+		"/usr/share/applications/sublime.desktop",
+		"/usr/share/app"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"reindent",
+			"auto_indent",
+			"indent",
+			"out_fname",
+			"in_fname",
+			"vector",
+			"W",
+			"w"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "procesoCliente.c",
+					"settings":
+					{
+						"buffer_size": 1118,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								619,
+								619
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 255.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/roger/.config/sublime-text-2/Packages/User/procesoCliente.sublime-build",
+					"settings":
+					{
+						"buffer_size": 137,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								81,
+								81
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
