@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#include "recursos/vector.h"
+
 #include "AdministradorProcesos.h"
 #include "Monitor.h"
 #include "InfoProcesos.h"
@@ -17,7 +17,6 @@
 
 //Variable Globales
 pthread_attr_t attr;
-Vector procesosClientes;
 pthread_t administradorProcesos; /* adm Procesos */
 pthread_t infoProcesos;
 pthread_t monitorProcesos;
@@ -32,25 +31,29 @@ void *nuevoCliente(void * param){
 			int rc;
 			char  ch[5];
 			char temp='1';
-			char *ok=&temp;			
-
-			printf("server waiting\n");
+			char *ok=&temp;
+			int cpu_burst,tiempo,iteraciones;			
+		
 			printf("Nuevo Cliente Solicitado\n");
 			rc = read(client_sockfd, ch, 5); // numero de caracteres leidos			
-			printf("CPU Burst= %s\n", ch ) ; 				
+			printf("CPU Burst= %s\n", ch ) ; 
+			cpu_burst=atoi(ch);				
 			write(client_sockfd, ok, 1);
 			
 			rc = read(client_sockfd, ch, 5); // numero de caracteres leidos
-			printf("Tiempo (Seg)= %s\n", ch ) ; 				
+			printf("Tiempo (Seg)= %s\n", ch ) ; 
+			tiempo=atoi(ch);					
 			write(client_sockfd, ok, 1);
 
 			
 			rc = read(client_sockfd, ch, 5); // numero de caracteres leidos
-			printf("Iteraciones= %s\n", ch ) ; 				
+			printf("Iteraciones= %s\n", ch ) ;
+		 	iteraciones=atoi(ch);			
 			write(client_sockfd, ok, 1);
 
 
-			iniciarProcesoCliente(50,2,2);
+			iniciarClienteSimulado(cpu_burst,tiempo,iteraciones);
+			
 	
 	close(client_sockfd);
 
@@ -135,10 +138,10 @@ void* abrirSocket(){
  	int yMax;
 	int yMin;
 	int z;
-	vector_init(&procesosClientes);
+	
 
  	
- 	iniciar_NubeS();
+ 	
  /*	int i;
  	for (i = 200; i > -50; i--) {
  		vector_append(&procesosClientes, i);

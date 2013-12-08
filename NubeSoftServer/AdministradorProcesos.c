@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "AdministradorProcesos.h"
 
-int iniciarProcesoCliente(int perc_cpu,int max_time,int N){
+int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 	pid_t cpid, w;
 	int status;
 	char *argv[5];
@@ -26,7 +26,7 @@ int iniciarProcesoCliente(int perc_cpu,int max_time,int N){
 	 }
 	 
 	 if (cpid == 0) {            //Code executed by child 
-		 printf("Child PID is %ld\n", (long) getpid());
+		 printf("Inicializando Proceso Cliente Simulado con PID= %ld\n", (long) getpid());
 	     argv[0] ="recursos/procesoCliente"; argv[4]=0;
 		 execv(argv[0], argv);
 		// sleep(10000);
@@ -36,10 +36,10 @@ int iniciarProcesoCliente(int perc_cpu,int max_time,int N){
 	 } else {                    // Code executed by parent 
 		 fprintf(stderr,"Waiting in the father %ld for child %d\n",(long) getpid(),cpid);
 		 w = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-		 fprintf(stderr,"\nChild finished");			 
-		 exit(EXIT_SUCCESS);
+		 fprintf(stderr,"\nProceso cliente finalizado\n");			 
+		// exit(EXIT_SUCCESS);
 	 }
-		 printf("\nHola");	
+		 //printf("\nHola");	
 	
 }
 

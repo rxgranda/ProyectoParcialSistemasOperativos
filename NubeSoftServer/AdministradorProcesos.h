@@ -8,7 +8,7 @@ typedef struct {
   char* estado;  // Estado de Proceso 
 } Cliente;
 
-int iniciarProcesoCliente(int perc_cpu,int max_time,int N);
+int iniciarClienteSimulado(int perc_cpu,int max_time,int N);
 int estadoProcesoCliente();
 int enviarSenialProceso();
 

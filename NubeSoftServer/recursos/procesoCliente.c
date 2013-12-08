@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
 	//sleep(10000);
-	printf("\nInicio cliente\n");
+	printf("\nInicio ejecutador cliente \n");
 	int perc_cpu,time_cpu,time_cpu_burst,i,N;
 	int max_time,time_io,time_io_burst;
 	double diff;
