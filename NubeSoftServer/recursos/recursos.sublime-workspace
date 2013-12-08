@@ -15,7 +15,7 @@
 			"file": "procesoCliente.c",
 			"settings":
 			{
-				"buffer_size": 1118,
+				"buffer_size": 1234,
 				"line_ending": "Unix"
 			}
 		},
@@ -26,6 +26,63 @@
 				"buffer_size": 137,
 				"line_ending": "Unix",
 				"name": "untitled.sublime-build"
+			}
+		},
+		{
+			"contents": "# include <stdlib.h>\n# include <stdio.h>\n# include <time.h>\n# include <math.h>\n\n# include \"normal.h\"\n\n\nvoid test04 ()\n\n/**********************************************************************/\n/*\n  Purpose:\n\n    TEST04 tests I8_NORMAL_AB.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    02 July 2006\n\n  Author:\n\n    John Burkardt\n*/\n{\n  double a;\n  double b;\n  long int i;\n  long int seed;\n  long int seed_init = 123456789;\n\n  printf ( \"\\n\" );\n  printf ( \"TEST04\\n\" );\n  printf ( \"  I8_NORMAL_AB computes pseudonormal integers\\n\" );\n  printf ( \"  with mean A and standard deviation B.\\n\" );\n\n  a = 70.0;\n  b = 10.0;\n  seed = seed_init;\n\n  printf ( \"\\n\" );\n  printf ( \"  The mean A = %f\\n\", a );\n  printf ( \"  The standard deviation B = %f\\n\", b );\n  printf ( \"  The initial seed is %d\\n\", seed_init );\n  printf ( \"\\n\" );\n\n  for ( i = 1; i <= 10; i++ )\n  {\n    printf ( \"  %8d  %8d\\n\", i, i8_normal_ab ( a, b, &seed ) );\n  }\n\n  //return;\n}\n\n\n\n\n int  main(int argc, char  *argv[]){\n\n  timestamp ( );\n  printf ( \"\\n\" );\n  printf ( \"NORMAL_PRB\\n\" );\n  printf ( \"  C version\\n\" );\n  printf ( \"  Test the NORMAL library.\\n\" );\n\n  //test03 ( );\n  test04 ();\n  printf ( \"\\n\" );\n  printf ( \"NORMAL_PRB\\n\" );\n  printf ( \"  Normal end of execution.\\n\" );\n  printf ( \"\\n\" );\n  timestamp ( );\n\n  return 0;\n}\n\n",
+			"file": "pruebaNormal.c",
+			"file_size": 1338,
+			"file_write_time": 1386466171000000,
+			"settings":
+			{
+				"buffer_size": 1338,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\ngcc -o NubeSoftClient NubeSoftClient.c recursos/normal.c -lm\n\n gcc -o Main Main.c recursos/vector.c Monitor.c AdministradorProcesos.c -pthread\n\n",
+			"settings":
+			{
+				"buffer_size": 145,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/roger/Escritorio/Sistemas Operativos/procesos/sck_servidor.c",
+			"settings":
+			{
+				"buffer_size": 1405,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/roger/Escritorio/Sistemas Operativos/procesos/sck_cliente.c",
+			"settings":
+			{
+				"buffer_size": 1842,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# include <stdlib.h>\n# include <stdio.h>\n# include <time.h>\n# include <math.h>\n\n# include \"normal.h\"\n\n/******************************************************************************/\n\nint i4_huge ( void )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    I4_HUGE returns a \"huge\" I4.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    29 August 2006\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Output, int I4_HUGE, a \"huge\" integer.\n*/\n{\n  int value;\n\n  value = 2147483647;\n\n  return value;\n}\n/******************************************************************************/\n\nint i4_normal_ab ( float a, float b, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    I4_NORMAL_AB returns a scaled pseudonormal I4.\n\n  Discussion:\n\n    The normal probability distribution function (PDF) is sampled,\n    with mean A and standard deviation B.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    02 July 2006\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, float A, the mean of the PDF.\n\n    Input, float B, the standard deviation of the PDF.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, int I4_NORMAL_AB, a sample of the normal PDF.\n*/\n{\n  int value;\n\n  value = r4_nint ( a + b * r4_normal_01 ( seed ) );\n\n  return value;\n}\n/******************************************************************************/\n\nlong long int i8_normal_ab ( double a, double b, long long int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    I8_NORMAL_AB returns a scaled pseudonormal I8.\n\n  Discussion:\n\n    The normal probability distribution function (PDF) is sampled,\n    with mean A and standard deviation B.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    02 July 2006\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, double A, the mean of the PDF.\n\n    Input, double B, the standard deviation of the PDF.\n\n    Input/output, long long int *SEED, a seed for the random number generator.\n\n    Output, long long int I8_NORMAL_AB, a sample of the normal PDF.\n*/\n{\n  int seed_int;\n  double value_double;\n  long long int value_long_int;\n\n  seed_int = ( int ) *seed;\n\n  value_double = a + b * r8_normal_01 ( &seed_int );\n\n  if ( value_double < 0.0 )\n  {\n    value_long_int = ( long long int ) ( value_double - 0.5 );\n  }\n  else\n  {\n    value_long_int = ( long long int ) ( value_double + 0.5 );\n  }\n\n  *seed = ( long long int ) seed_int;\n\n  return value_long_int;\n}\n/******************************************************************************/\n\nint r4_nint ( float x )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R4_NINT returns the nearest I4 to a R4.\n\n  Example:\n\n        X         R4_NINT\n\n      1.3         1\n      1.4         1\n      1.5         1 or 2\n      1.6         2\n      0.0         0\n     -0.7        -1\n     -1.1        -1\n     -1.6        -2\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    05 May 2006\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, float X, the value.\n\n    Output, int R4_NINT, the nearest integer to X.\n*/\n{\n  int s;\n  int value;\n\n  if ( x < 0.0 )\n  {\n    s = -1;\n  }\n  else\n  {\n    s = 1;\n  }\n  value = s * ( int ) ( fabs ( x ) + 0.5 );\n\n  return value;\n}\n/******************************************************************************/\n\nfloat r4_normal_01 ( int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R4_NORMAL_01 returns a unit pseudonormal R4.\n\n  Discussion:\n\n    The standard normal probability distribution function (PDF) has \n    mean 0 and standard deviation 1.\n\n    The Box-Muller method is used, which is efficient, but \n    generates two values at a time.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    05 June 2013\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, float R4_NORMAL_01, a normally distributed random value.\n*/\n{\n  float r1;\n  float r2;\n  const double r4_pi = 3.141592653589793;\n  float x;\n\n  r1 = r4_uniform_01 ( seed );\n  r2 = r4_uniform_01 ( seed );\n  x = sqrt ( - 2.0 * log ( r1 ) ) * cos ( 2.0 * r4_pi * r2 );\n\n  return x;\n}\n/******************************************************************************/\n\nfloat r4_normal_ab ( float a, float b, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R4_NORMAL_AB returns a scaled pseudonormal R4.\n\n  Discussion:\n\n    The normal probability distribution function (PDF) is sampled,\n    with mean A and standard deviation B.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    29 June 2006\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, float A, the mean of the PDF.\n\n    Input, float B, the standard deviation of the PDF.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, float R4_NORMAL_AB, a sample of the normal PDF.\n*/\n{\n  float value;\n\n  value = a + b * r4_normal_01 ( seed );\n\n  return value;\n}\n/******************************************************************************/\n\nfloat r4_uniform_01 ( int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R4_UNIFORM_01 returns a unit pseudorandom R4.\n\n  Discussion:\n\n    This routine implements the recursion\n\n      seed = 16807 * seed mod ( 2^31 - 1 )\n      r4_uniform_01 = seed / ( 2^31 - 1 )\n\n    The integer arithmetic never requires more than 32 bits,\n    including a sign bit.\n\n    If the initial seed is 12345, then the first three computations are\n\n      Input     Output      R4_UNIFORM_01\n      SEED      SEED\n\n         12345   207482415  0.096616\n     207482415  1790989824  0.833995\n    1790989824  2035175616  0.947702\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    16 November 2004\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Pierre L'Ecuyer,\n    Random Number Generation,\n    in Handbook of Simulation\n    edited by Jerry Banks,\n    Wiley Interscience, page 95, 1998.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input/output, int *SEED, the \"seed\" value.  Normally, this\n    value should not be 0.  On output, SEED has been updated.\n\n    Output, float R4_UNIFORM_01, a new pseudorandom variate, strictly between\n    0 and 1.\n*/\n{\n  int k;\n  float r;\n\n  k = *seed / 127773;\n\n  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;\n\n  if ( *seed < 0 )\n  {\n    *seed = *seed + 2147483647;\n  }\n/*\n  Although SEED can be represented exactly as a 32 bit integer,\n  it generally cannot be represented exactly as a 32 bit real number!\n*/\n  r = ( float ) ( *seed ) * 4.656612875E-10;\n\n  return r;\n}\n/******************************************************************************/\n\ndouble r8_normal_01 ( int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8_NORMAL_01 returns a unit pseudonormal R8.\n\n  Discussion:\n\n    The standard normal probability distribution function (PDF) has \n    mean 0 and standard deviation 1.\n\n    Because this routine uses the Box Muller method, it requires pairs\n    of uniform random values to generate a pair of normal random values.\n    This means that on every other call, the code can use the second\n    value that it calculated.\n\n    However, if the user has changed the SEED value between calls,\n    the routine automatically resets itself and discards the saved data.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    06 August 2013\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double R8_NORMAL_01, a normally distributed random value.\n*/\n{\n  double r1;\n  double r2;\n  const double r8_pi = 3.141592653589793;\n  double x;\n\n  r1 = r8_uniform_01 ( seed );\n  r2 = r8_uniform_01 ( seed );\n  x = sqrt ( - 2.0 * log ( r1 ) ) * cos ( 2.0 * r8_pi * r2 );\n\n  return x;\n}\n/******************************************************************************/\n\ndouble r8_normal_ab ( double a, double b, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8_NORMAL_AB returns a scaled pseudonormal R8.\n\n  Discussion:\n\n    The normal probability distribution function (PDF) is sampled,\n    with mean A and standard deviation B.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    21 November 2004\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, double A, the mean of the PDF.\n\n    Input, double B, the standard deviation of the PDF.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double R8_NORMAL_AB, a sample of the normal PDF.\n*/\n{\n  double value;\n\n  value = a + b * r8_normal_01 ( seed );\n\n  return value;\n}\n/******************************************************************************/\n\ndouble r8_uniform_01 ( int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8_UNIFORM_01 returns a unit pseudorandom R8.\n\n  Discussion:\n\n    This routine implements the recursion\n\n      seed = 16807 * seed mod ( 2^31 - 1 )\n      r8_uniform_01 = seed / ( 2^31 - 1 )\n\n    The integer arithmetic never requires more than 32 bits,\n    including a sign bit.\n\n    If the initial seed is 12345, then the first three computations are\n\n      Input     Output      R8_UNIFORM_01\n      SEED      SEED\n\n         12345   207482415  0.096616\n     207482415  1790989824  0.833995\n    1790989824  2035175616  0.947702\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    11 August 2004\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Pierre L'Ecuyer,\n    Random Number Generation,\n    in Handbook of Simulation\n    edited by Jerry Banks,\n    Wiley Interscience, page 95, 1998.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input/output, int *SEED, the \"seed\" value.  Normally, this\n    value should not be 0.  On output, SEED has been updated.\n\n    Output, double R8_UNIFORM_01, a new pseudorandom variate, strictly between\n    0 and 1.\n*/\n{\n  int k;\n  double r;\n\n  k = *seed / 127773;\n\n  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;\n\n  if ( *seed < 0 )\n  {\n    *seed = *seed + 2147483647;\n  }\n/*\n  Although SEED can be represented exactly as a 32 bit integer,\n  it generally cannot be represented exactly as a 32 bit real number!\n*/\n  r = ( double ) ( *seed ) * 4.656612875E-10;\n\n  return r;\n}\n/******************************************************************************/\n\nvoid r8mat_normal_01 ( int m, int n, int *seed, double r[] )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8MAT_NORMAL_01 returns a unit pseudonormal R8MAT.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    03 October 2005\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input, int M, N, the number of rows and columns in the array.\n\n    Input/output, int *SEED, the \"seed\" value, which should NOT be 0.\n    On output, SEED has been updated.\n\n    Output, double R[M*N], the array of pseudonormal values.\n*/\n{\n  r8vec_normal_01 ( m * n, seed, r );\n\n  return;\n}\n/******************************************************************************/\n\ndouble *r8mat_normal_01_new ( int m, int n, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8MAT_NORMAL_01_NEW returns a unit pseudonormal R8MAT.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    03 October 2005\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input, int M, N, the number of rows and columns in the array.\n\n    Input/output, int *SEED, the \"seed\" value, which should NOT be 0.\n    On output, SEED has been updated.\n\n    Output, double R8MAT_NORMAL_01_NEW[M*N], the array of pseudonormal values.\n*/\n{\n  double *r;\n\n  r = r8vec_normal_01_new ( m * n, seed );\n\n  return r;\n}\n/******************************************************************************/\n\nvoid r8mat_normal_ab ( int m, int n, double a, double b, int *seed, double r[] )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8MAT_NORMAL_AB returns a scaled pseudonormal R8MAT.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    03 October 2005\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input, int M, N, the number of rows and columns in the array.\n\n    Input, double A, B, the mean and standard deviation.\n\n    Input/output, int *SEED, the \"seed\" value, which should NOT be 0.\n    On output, SEED has been updated.\n\n    Output, double R[M*N], the array of pseudonormal values.\n*/\n{\n  r8vec_normal_ab ( m * n, a, b, seed, r );\n\n  return;\n}\n/******************************************************************************/\n\ndouble *r8mat_normal_ab_new ( int m, int n, double a, double b, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8MAT_NORMAL_AB_NEW returns a scaled pseudonormal R8MAT.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    03 October 2005\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input, int M, N, the number of rows and columns in the array.\n\n    Input, double A, B, the mean and standard deviation.\n\n    Input/output, int *SEED, the \"seed\" value, which should NOT be 0.\n    On output, SEED has been updated.\n\n    Output, double R8MAT_NORMAL_AB_NEW[M*N], the array of pseudonormal values.\n*/\n{\n  double *r;\n\n  r = r8vec_normal_ab_new ( m * n, a, b, seed );\n\n  return r;\n}\n/******************************************************************************/\n\nvoid r8vec_normal_01 ( int n, int *seed, double x[] )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8VEC_NORMAL_01 returns a unit pseudonormal R8VEC.\n\n  Discussion:\n\n    The standard normal probability distribution function (PDF) has\n    mean 0 and standard deviation 1.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    06 August 2013\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, int N, the number of values desired.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double X[N], a sample of the standard normal PDF.\n\n  Local parameters:\n\n    Local, double R[N+1], is used to store some uniform random values.\n    Its dimension is N+1, but really it is only needed to be the\n    smallest even number greater than or equal to N.\n\n    Local, int X_LO, X_HI, records the range of entries of\n    X that we need to compute.\n*/\n{\n  int i;\n  int m;\n  double *r;\n  const double r8_pi = 3.141592653589793;\n  int x_hi;\n  int x_lo;\n/*\n  Record the range of X we need to fill in.\n*/\n  x_lo = 1;\n  x_hi = n;\n/*\n  If we need just one new value, do that here to avoid null arrays.\n*/\n  if ( x_hi - x_lo + 1 == 1 )\n  {\n    r = r8vec_uniform_01_new ( 2, seed );\n\n    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );\n\n    free ( r );\n  }\n/*\n  If we require an even number of values, that's easy.\n*/\n  else if ( ( x_hi - x_lo + 1 ) % 2 == 0 )\n  {\n    m = ( x_hi - x_lo + 1 ) / 2;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-2; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    free ( r );\n  }\n/*\n  If we require an odd number of values, we generate an even number,\n  and handle the last pair specially, storing one in X(N), and\n  saving the other for later.\n*/\n  else\n  {\n    x_hi = x_hi - 1;\n\n    m = ( x_hi - x_lo + 1 ) / 2 + 1;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-4; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    i = 2*m - 2;\n\n    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n\n    free ( r );\n  }\n\n  return;\n}\n/******************************************************************************/\n\ndouble *r8vec_normal_01_new ( int n, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8VEC_NORMAL_01_NEW returns a unit pseudonormal R8VEC.\n\n  Discussion:\n\n    The standard normal probability distribution function (PDF) has\n    mean 0 and standard deviation 1.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    06 August 2013\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, int N, the number of values desired.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double R8VEC_NORMAL_01_NEW[N], a sample of the standard normal PDF.\n\n  Local parameters:\n\n\n    Local, double R[N+1], is used to store some uniform random values.\n    Its dimension is N+1, but really it is only needed to be the\n    smallest even number greater than or equal to N.\n\n    Local, int X_LO, X_HI, records the range of entries of\n    X that we need to compute.\n*/\n{\n  int i;\n  int m;\n  double *r;\n  const double r8_pi = 3.141592653589793;\n  double *x;\n  int x_hi;\n  int x_lo;\n\n  x = malloc ( n * sizeof ( double ) );\n/*\n  Record the range of X we need to fill in.\n*/\n  x_lo = 1;\n  x_hi = n;\n/*\n  If we need just one new value, do that here to avoid null arrays.\n*/\n  if ( x_hi - x_lo + 1 == 1 )\n  {\n    r = r8vec_uniform_01_new ( 2, seed );\n\n    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );\n\n    free ( r );\n  }\n/*\n  If we require an even number of values, that's easy.\n*/\n  else if ( ( x_hi - x_lo + 1 ) % 2 == 0 )\n  {\n    m = ( x_hi - x_lo + 1 ) / 2;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-2; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n    free ( r );\n  }\n/*\n  If we require an odd number of values, we generate an even number,\n  and handle the last pair specially, storing one in X(N), and\n  saving the other for later.\n*/\n  else\n  {\n    x_hi = x_hi - 1;\n\n    m = ( x_hi - x_lo + 1 ) / 2 + 1;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-4; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    i = 2 * m - 2;\n\n    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n\n    free ( r );\n  }\n\n  return x;\n}\n/******************************************************************************/\n\nvoid r8vec_normal_ab ( int n, double b, double c, int *seed, double x[] )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8VEC_NORMAL_AB returns a scaled pseudonormal R8VEC.\n\n  Discussion:\n\n    The scaled normal probability distribution function (PDF) has\n    mean A and standard deviation B.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    06 August 2013\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, int N, the number of values desired.\n\n    Input, double B, C, the mean and standard deviation.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double X[N], a sample of the standard normal PDF.\n\n  Local parameters:\n\n    Local, double R[N+1], is used to store some uniform random values.\n    Its dimension is N+1, but really it is only needed to be the\n    smallest even number greater than or equal to N.\n\n    Local, int X_LO, X_HI, records the range of entries of\n    X that we need to compute.\n*/\n{\n  int i;\n  int m;\n  double *r;\n  const double r8_pi = 3.141592653589793;\n  int x_hi;\n  int x_lo;\n/*\n  Record the range of X we need to fill in.\n*/\n  x_lo = 1;\n  x_hi = n;\n/*\n  If we need just one new value, do that here to avoid null arrays.\n*/\n  if ( x_hi - x_lo + 1 == 1 )\n  {\n    r = r8vec_uniform_01_new ( 2, seed );\n\n    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );\n\n    free ( r );\n  }\n/*\n  If we require an even number of values, that's easy.\n*/\n  else if ( ( x_hi - x_lo + 1 ) % 2 == 0 )\n  {\n    m = ( x_hi - x_lo + 1 ) / 2;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-2; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    free ( r );\n  }\n/*\n  If we require an odd number of values, we generate an even number,\n  and handle the last pair specially, storing one in X(N), and\n  saving the other for later.\n*/\n  else\n  {\n    x_hi = x_hi - 1;\n\n    m = ( x_hi - x_lo + 1 ) / 2 + 1;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-4; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    i = 2 * m - 2;\n\n    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n\n    free ( r );\n  }\n\n  for ( i = 0; i < n; i++ )\n  {\n    x[i] = b + c * x[i];\n  }\n\n  return;\n}\n/******************************************************************************/\n\ndouble *r8vec_normal_ab_new ( int n, double b, double c, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8VEC_NORMAL_AB_NEW returns a scaled pseudonormal R8VEC.\n\n  Discussion:\n\n    The scaled normal probability distribution function (PDF) has\n    mean A and standard deviation B.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    06 August 2013\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    Input, int N, the number of values desired.\n\n    Input, double B, C, the mean and standard deviation.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double R8VEC_NORMAL_AB_NEW[N], a sample of the standard normal PDF.\n\n  Local parameters:\n\n    Local, double R[N+1], is used to store some uniform random values.\n    Its dimension is N+1, but really it is only needed to be the\n    smallest even number greater than or equal to N.\n\n    Local, int X_LO, X_HI, records the range of entries of\n    X that we need to compute.\n*/\n{\n  int i;\n  int m;\n  double *r;\n  const double r8_pi = 3.141592653589793;\n  double *x;\n  int x_hi;\n  int x_lo;\n\n  x = malloc ( n * sizeof ( double ) );\n/*\n  Record the range of X we need to fill in.\n*/\n  x_lo = 1;\n  x_hi = n;\n/*\n  If we need just one new value, do that here to avoid null arrays.\n*/\n  if ( x_hi - x_lo + 1 == 1 )\n  {\n    r = r8vec_uniform_01_new ( 2, seed );\n\n    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );\n\n    free ( r );\n  }\n/*\n  If we require an even number of values, that's easy.\n*/\n  else if ( ( x_hi - x_lo + 1 ) % 2 == 0 )\n  {\n    m = ( x_hi - x_lo + 1 ) / 2;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-2; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    free ( r );\n  }\n/*\n  If we require an odd number of values, we generate an even number,\n  and handle the last pair specially, storing one in X(N).\n*/\n  else\n  {\n    x_hi = x_hi - 1;\n\n    m = ( x_hi - x_lo + 1 ) / 2 + 1;\n\n    r = r8vec_uniform_01_new ( 2*m, seed );\n\n    for ( i = 0; i <= 2*m-4; i = i + 2 )\n    {\n      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );\n    }\n\n    i = 2*m - 2;\n\n    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );\n\n    free ( r );\n  }\n\n  for ( i = 0; i < n; i++ )\n  {\n    x[i] = b + c * x[i];\n  }\n\n  return x;\n}\n/******************************************************************************/\n\ndouble *r8vec_uniform_01_new ( int n, int *seed )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    R8VEC_UNIFORM_01_NEW returns a unit pseudorandom R8VEC.\n\n  Discussion:\n\n    This routine implements the recursion\n\n      seed = 16807 * seed mod ( 2^31 - 1 )\n      unif = seed / ( 2^31 - 1 )\n\n    The integer arithmetic never requires more than 32 bits,\n    including a sign bit.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    19 August 2004\n\n  Author:\n\n    John Burkardt\n\n  Reference:\n\n    Paul Bratley, Bennett Fox, Linus Schrage,\n    A Guide to Simulation,\n    Springer Verlag, pages 201-202, 1983.\n\n    Bennett Fox,\n    Algorithm 647:\n    Implementation and Relative Efficiency of Quasirandom\n    Sequence Generators,\n    ACM Transactions on Mathematical Software,\n    Volume 12, Number 4, pages 362-376, 1986.\n\n    Peter Lewis, Allen Goodman, James Miller,\n    A Pseudo-Random Number Generator for the System/360,\n    IBM Systems Journal,\n    Volume 8, pages 136-143, 1969.\n\n  Parameters:\n\n    Input, int N, the number of entries in the vector.\n\n    Input/output, int *SEED, a seed for the random number generator.\n\n    Output, double R8VEC_UNIFORM_01_NEW[N], the vector of pseudorandom values.\n*/\n{\n  int i;\n  int k;\n  double *r;\n\n  r = malloc ( n * sizeof ( double ) );\n\n  for ( i = 0; i < n; i++ )\n  {\n    k = *seed / 127773;\n\n    *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;\n\n    if ( *seed < 0 )\n    {\n      *seed = *seed + 2147483647;\n    }\n\n    r[i] = ( double ) ( *seed ) * 4.656612875E-10;\n  }\n\n  return r;\n}\n/******************************************************************************/\n\nvoid timestamp ( void )\n\n/******************************************************************************/\n/*\n  Purpose:\n\n    TIMESTAMP prints the current YMDHMS date as a time stamp.\n\n  Example:\n\n    May 31 2001 09:45:54 AM\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    02 October 2003\n\n  Author:\n\n    John Burkardt\n\n  Parameters:\n\n    None\n*/\n{\n# define TIME_SIZE 40\n\n  static char time_buffer[TIME_SIZE];\n  const struct tm *tm;\n  size_t len;\n  time_t now;\n\n  now = time ( NULL );\n  tm = localtime ( &now );\n\n  len = strftime ( time_buffer, TIME_SIZE, \"%d %B %Y %I:%M:%S %p\", tm );\n\n  printf ( \"%s\\n\", time_buffer );\n\n  return;\n# undef TIME_SIZE\n}\n",
+			"file": "normal.c",
+			"file_size": 30036,
+			"file_write_time": 1385440290000000,
+			"settings":
+			{
+				"buffer_size": 30036,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "int i4_huge ( void );\nint i4_normal_ab ( float a, float b, int *seed );\nlong long int i8_normal_ab ( double a, double b, long long int *seed );\nint r4_nint ( float x );\nfloat r4_normal_01 ( int *seed );\nfloat r4_normal_ab ( float a, float b, int *seed );\nfloat r4_uniform_01 ( int *seed );\ndouble r8_normal_01 ( int *seed );\ndouble r8_normal_ab ( double a, double b, int *seed );\ndouble r8_uniform_01 ( int *seed );\nvoid r8mat_normal_01 ( int m, int n, int *seed, double x[] );\ndouble *r8mat_normal_01_new ( int m, int n, int *seed );\nvoid r8mat_normal_ab ( int m, int n, double a, double b, int *seed, double x[] );\ndouble *r8mat_normal_ab_new ( int m, int n, double a, double b, int *seed );\ndouble *r8vec_normal_ab_new ( int n, double a, double b, int *seed );\nvoid r8vec_normal_01 ( int n, int *seed, double x[] );\ndouble *r8vec_normal_01_new ( int n, int *seed );\nvoid r8vec_normal_ab ( int n, double a, double b, int *seed, double x[] );\ndouble *r8vec_normal_ab_new ( int n, double a, double b, int *seed );\ndouble *r8vec_uniform_01_new ( int n, int *seed );\nvoid timestamp ( void );\n",
+			"file": "normal.h",
+			"file_size": 1090,
+			"file_write_time": 1385440316000000,
+			"settings":
+			{
+				"buffer_size": 1090,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -86,6 +143,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"r8_normal_01",
 			"reindent",
 			"auto_indent",
 			"indent",
@@ -111,7 +169,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -119,15 +177,15 @@
 					"file": "procesoCliente.c",
 					"settings":
 					{
-						"buffer_size": 1118,
+						"buffer_size": 1234,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								619,
-								619
+								0,
+								0
 							]
 						],
 						"settings":
@@ -136,7 +194,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 255.0,
+						"translation.y": 357.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -160,6 +218,168 @@
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "pruebaNormal.c",
+					"settings":
+					{
+						"buffer_size": 1338,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1338,
+								1338
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 459.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"settings":
+					{
+						"buffer_size": 145,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								144,
+								144
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/roger/Escritorio/Sistemas Operativos/procesos/sck_servidor.c",
+					"settings":
+					{
+						"buffer_size": 1405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1023,
+								1023
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/roger/Escritorio/Sistemas Operativos/procesos/sck_cliente.c",
+					"settings":
+					{
+						"buffer_size": 1842,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1839,
+								1839
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 638.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "normal.c",
+					"settings":
+					{
+						"buffer_size": 30036,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7616,
+								7616
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "normal.h",
+					"settings":
+					{
+						"buffer_size": 1090,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

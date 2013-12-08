@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"y",
+				"yMin"
+			],
+			[
+				"Adm",
+				"administradorProcesos"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"ini",
+				"iniciar_cliente"
+			],
+			[
 				"i",
 				"include"
 			]
@@ -12,18 +28,53 @@
 	"buffers":
 	[
 		{
-			"file": "Monitor.c",
+			"file": "Main.c",
 			"settings":
 			{
-				"buffer_size": 53,
+				"buffer_size": 4041,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Informes.c",
+			"contents": "# include <stdlib.h>\n# include <stdio.h>\n# include <time.h>\n# include <math.h>\n\n\n#ifdef HAVE_CONFIG_H\n#include <config.h>\n#endif\n\n#include <stdio.h>\n#include <stdlib.h>\n#include <sys/types.h>\n#include <sys/socket.h>\n#include <netinet/in.h>\n#include <arpa/inet.h>\n#include <unistd.h>\n\n\n\n# include \"recursos/normal.h\"\n\n\nvoid test04 ()\n\n/**********************************************************************/\n/*\n  Purpose:\n\n    TEST04 tests I8_NORMAL_AB.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    02 July 2006\n\n  Author:\n\n    John Burkardt\n*/\n{\n  double a;\n  double b;\n  long int i;\n  long int seed;\n  long int seed_init = 123456789;\n\n  printf ( \"\\n\" );\n  printf ( \"TEST04\\n\" );\n  printf ( \"  I8_NORMAL_AB computes pseudonormal integers\\n\" );\n  printf ( \"  with mean A and standard deviation B.\\n\" );\n\n  a = 70.0;\n  b = 10.0;\n  seed = seed_init;\n\n  printf ( \"\\n\" );\n  printf ( \"  The mean A = %f\\n\", a );\n  printf ( \"  The standard deviation B = %f\\n\", b );\n  printf ( \"  The initial seed is %d\\n\", seed_init );\n  printf ( \"\\n\" );\n\n  for ( i = 1; i <= 10; i++ )\n  {\n    printf ( \"  %8d  %8d\\n\", i, i8_normal_ab ( a, b, &seed ) );\n    // gestionarCliente()\n  }\n\n  //return;\n}\n\nint gestionarCliente(int perc_cpu,int max_time,int N){\n  printf(\"This is the client program\\n\");\n\n  int sockfd;\n  int len, rc ;\n  struct sockaddr_in address;\n  int result;\n  char ch = 'A';\n\n   //Create socket for client.\n  sockfd = socket(PF_INET, SOCK_STREAM, 0);\n  if (sockfd == -1) { \n    perror(\"Socket create failed.\\n\") ; \n    return -1 ; \n  } \n  \n  //Name the socket as agreed with server.\n  address.sin_family = AF_INET;\n  address.sin_addr.s_addr = inet_addr(\"127.0.0.1\");\n  address.sin_port = htons(7777);\n  len = sizeof(address);\n\n  result = connect(sockfd, (struct sockaddr *)&address, len);\n  if(result == -1)\n  {\n    perror(\"Error has occurred\");\n    exit(-1);\n  }\n\n  while ( ch < 'Y') {\n\n    //Read and write via sockfd\n    rc = write(sockfd, &ch, 1);\n    if (rc == -1) break ; \n    read(sockfd, &ch, 1);\n    printf(\"Char from server = %c\\n\", ch);    \n  } \n  close(sockfd);\nreturn 0;\n // exit(0);\n\n\n}\n\n\n int  main(int argc, char  *argv[]){\n\n  timestamp ( );\n  printf ( \"\\n\" );\n  printf ( \"NORMAL_PRB\\n\" );\n  printf ( \"  C version\\n\" );\n  printf ( \"  Test the NORMAL library.\\n\" );\n\n  //test03 ( );\n  test04 ();\n  printf ( \"\\n\" );\n  printf ( \"NORMAL_PRB\\n\" );\n  printf ( \"  Normal end of execution.\\n\" );\n  printf ( \"\\n\" );\n  timestamp ( );\n\n  return 0;\n}\n\n",
+			"file": "NubeSoftClient.c",
+			"file_size": 1611,
+			"file_write_time": 1386484624000000,
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 2493,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "InfoProcesos.c",
+			"settings":
+			{
+				"buffer_size": 139,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "InfoProcesos.h",
+			"settings":
+			{
+				"buffer_size": 160,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Monitor.c",
+			"settings":
+			{
+				"buffer_size": 396,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Monitor.h",
+			"settings":
+			{
+				"buffer_size": 174,
 				"line_ending": "Unix"
 			}
 		},
@@ -31,15 +82,15 @@
 			"file": "AdministradorProcesos.c",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 1214,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Main.c",
+			"file": "AdministradorProcesos.h",
 			"settings":
 			{
-				"buffer_size": 1936,
+				"buffer_size": 329,
 				"line_ending": "Unix"
 			}
 		},
@@ -47,9 +98,17 @@
 			"file": "recursos/procesoCliente.c",
 			"settings":
 			{
-				"buffer_size": 1118,
+				"buffer_size": 1234,
 				"line_ending": "Unix",
 				"name": "#include <stdlib.h>"
+			}
+		},
+		{
+			"file": "recursos/procesoCliente.h",
+			"settings":
+			{
+				"buffer_size": 112,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -72,17 +131,9 @@
 			"file": "/home/roger/.config/sublime-text-2/Packages/User/main.sublime-build",
 			"settings":
 			{
-				"buffer_size": 186,
+				"buffer_size": 219,
 				"line_ending": "Unix",
 				"name": "untitled.sublime-build"
-			}
-		},
-		{
-			"file": "Monitor.h",
-			"settings":
-			{
-				"buffer_size": 125,
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -110,6 +161,7 @@
 	},
 	"file_history":
 	[
+		"/home/roger/Documentos/ProyectoParcialSistemasOperativos/NubesoftClient/NubeSoftClient",
 		"/home/roger/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
 		"/home/roger/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/roger/Escritorio/Sistemas Operativos/threads/thread.c",
@@ -147,6 +199,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"iniciarProcesoCliente",
+			"\"\n",
 			"reindent",
 			"auto_indent",
 			"indent",
@@ -172,23 +226,23 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Monitor.c",
+					"file": "Main.c",
 					"settings":
 					{
-						"buffer_size": 53,
+						"buffer_size": 4041,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								37,
-								37
+								1603,
+								1603
 							]
 						],
 						"settings":
@@ -197,51 +251,53 @@
 							"syntax": "Packages/C++/C.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 867.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Informes.c",
+					"file": "NubeSoftClient.c",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 2493,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1202,
+								1202
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 860.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "AdministradorProcesos.c",
+					"file": "InfoProcesos.c",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 139,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								14,
+								14
 							]
 						],
 						"settings":
@@ -256,18 +312,44 @@
 				},
 				{
 					"buffer": 3,
-					"file": "Main.c",
+					"file": "InfoProcesos.h",
 					"settings":
 					{
-						"buffer_size": 1936,
+						"buffer_size": 160,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								612,
-								612
+								71,
+								71
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Monitor.c",
+					"settings":
+					{
+						"buffer_size": 396,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								142,
+								142
 							]
 						],
 						"settings":
@@ -276,25 +358,105 @@
 							"syntax": "Packages/C++/C.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "recursos/procesoCliente.c",
+					"buffer": 5,
+					"file": "Monitor.h",
 					"settings":
 					{
-						"buffer_size": 1118,
+						"buffer_size": 174,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								399,
-								399
+								164,
+								164
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "AdministradorProcesos.c",
+					"settings":
+					{
+						"buffer_size": 1214,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								61,
+								61
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "AdministradorProcesos.h",
+					"settings":
+					{
+						"buffer_size": 329,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								264,
+								264
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "recursos/procesoCliente.c",
+					"settings":
+					{
+						"buffer_size": 1234,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								432,
+								432
 							]
 						],
 						"settings":
@@ -310,7 +472,33 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 9,
+					"file": "recursos/procesoCliente.h",
+					"settings":
+					{
+						"buffer_size": 112,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								79,
+								79
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
 					"file": "recursos/vector.c",
 					"settings":
 					{
@@ -321,8 +509,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								379,
+								379
 							]
 						],
 						"settings":
@@ -338,7 +526,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 11,
 					"file": "recursos/vector.h",
 					"settings":
 					{
@@ -349,8 +537,8 @@
 						"selection":
 						[
 							[
-								147,
-								147
+								123,
+								123
 							]
 						],
 						"settings":
@@ -364,50 +552,24 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 12,
 					"file": "/home/roger/.config/sublime-text-2/Packages/User/main.sublime-build",
 					"settings":
 					{
-						"buffer_size": 186,
+						"buffer_size": 219,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								51,
+								51
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Monitor.h",
-					"settings":
-					{
-						"buffer_size": 125,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								125,
-								125
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

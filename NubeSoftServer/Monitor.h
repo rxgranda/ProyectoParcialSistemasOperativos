@@ -4,6 +4,6 @@
  
 
 int iniciarMonitoreo(int pid);  /* An example function declaration */
-void *init_Monitor(void *param);
+void init_Monitor(int yMax,int yMin, int z);
 
 #endif
