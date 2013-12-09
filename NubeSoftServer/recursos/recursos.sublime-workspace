@@ -40,10 +40,10 @@
 			}
 		},
 		{
-			"contents": "\ngcc -o NubeSoftClient NubeSoftClient.c recursos/normal.c -lm\n\n gcc -o Main Main.c recursos/vector.c Monitor.c AdministradorProcesos.c -pthread\n\n",
+			"file": "/home/roger/Escritorio/pendientes",
 			"settings":
 			{
-				"buffer_size": 145,
+				"buffer_size": 382,
 				"line_ending": "Unix"
 			}
 		},
@@ -169,7 +169,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -211,8 +211,8 @@
 						"selection":
 						[
 							[
-								81,
-								81
+								76,
+								76
 							]
 						],
 						"settings":
@@ -255,17 +255,18 @@
 				},
 				{
 					"buffer": 3,
+					"file": "/home/roger/Escritorio/pendientes",
 					"settings":
 					{
-						"buffer_size": 145,
+						"buffer_size": 382,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								144,
-								144
+								382,
+								382
 							]
 						],
 						"settings":
@@ -291,8 +292,8 @@
 						"selection":
 						[
 							[
-								1023,
-								1023
+								1329,
+								1329
 							]
 						],
 						"settings":
@@ -301,7 +302,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

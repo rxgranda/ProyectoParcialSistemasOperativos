@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"th",
+				"thread_count"
+			],
+			[
+				"p",
+				"printf	printf …"
+			],
+			[
+				"para",
+				"param"
+			],
+			[
+				"Mon",
+				"Monitor"
+			],
+			[
+				"param",
+				"parametros"
+			],
+			[
 				"y",
 				"yMin"
 			],
@@ -31,18 +51,15 @@
 			"file": "Main.c",
 			"settings":
 			{
-				"buffer_size": 4041,
+				"buffer_size": 5084,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "# include <stdlib.h>\n# include <stdio.h>\n# include <time.h>\n# include <math.h>\n\n\n#ifdef HAVE_CONFIG_H\n#include <config.h>\n#endif\n\n#include <stdio.h>\n#include <stdlib.h>\n#include <sys/types.h>\n#include <sys/socket.h>\n#include <netinet/in.h>\n#include <arpa/inet.h>\n#include <unistd.h>\n\n\n\n# include \"recursos/normal.h\"\n\n\nvoid test04 ()\n\n/**********************************************************************/\n/*\n  Purpose:\n\n    TEST04 tests I8_NORMAL_AB.\n\n  Licensing:\n\n    This code is distributed under the GNU LGPL license. \n\n  Modified:\n\n    02 July 2006\n\n  Author:\n\n    John Burkardt\n*/\n{\n  double a;\n  double b;\n  long int i;\n  long int seed;\n  long int seed_init = 123456789;\n\n  printf ( \"\\n\" );\n  printf ( \"TEST04\\n\" );\n  printf ( \"  I8_NORMAL_AB computes pseudonormal integers\\n\" );\n  printf ( \"  with mean A and standard deviation B.\\n\" );\n\n  a = 70.0;\n  b = 10.0;\n  seed = seed_init;\n\n  printf ( \"\\n\" );\n  printf ( \"  The mean A = %f\\n\", a );\n  printf ( \"  The standard deviation B = %f\\n\", b );\n  printf ( \"  The initial seed is %d\\n\", seed_init );\n  printf ( \"\\n\" );\n\n  for ( i = 1; i <= 10; i++ )\n  {\n    printf ( \"  %8d  %8d\\n\", i, i8_normal_ab ( a, b, &seed ) );\n    // gestionarCliente()\n  }\n\n  //return;\n}\n\nint gestionarCliente(int perc_cpu,int max_time,int N){\n  printf(\"This is the client program\\n\");\n\n  int sockfd;\n  int len, rc ;\n  struct sockaddr_in address;\n  int result;\n  char ch = 'A';\n\n   //Create socket for client.\n  sockfd = socket(PF_INET, SOCK_STREAM, 0);\n  if (sockfd == -1) { \n    perror(\"Socket create failed.\\n\") ; \n    return -1 ; \n  } \n  \n  //Name the socket as agreed with server.\n  address.sin_family = AF_INET;\n  address.sin_addr.s_addr = inet_addr(\"127.0.0.1\");\n  address.sin_port = htons(7777);\n  len = sizeof(address);\n\n  result = connect(sockfd, (struct sockaddr *)&address, len);\n  if(result == -1)\n  {\n    perror(\"Error has occurred\");\n    exit(-1);\n  }\n\n  while ( ch < 'Y') {\n\n    //Read and write via sockfd\n    rc = write(sockfd, &ch, 1);\n    if (rc == -1) break ; \n    read(sockfd, &ch, 1);\n    printf(\"Char from server = %c\\n\", ch);    \n  } \n  close(sockfd);\nreturn 0;\n // exit(0);\n\n\n}\n\n\n int  main(int argc, char  *argv[]){\n\n  timestamp ( );\n  printf ( \"\\n\" );\n  printf ( \"NORMAL_PRB\\n\" );\n  printf ( \"  C version\\n\" );\n  printf ( \"  Test the NORMAL library.\\n\" );\n\n  //test03 ( );\n  test04 ();\n  printf ( \"\\n\" );\n  printf ( \"NORMAL_PRB\\n\" );\n  printf ( \"  Normal end of execution.\\n\" );\n  printf ( \"\\n\" );\n  timestamp ( );\n\n  return 0;\n}\n\n",
 			"file": "NubeSoftClient.c",
-			"file_size": 1611,
-			"file_write_time": 1386484624000000,
 			"settings":
 			{
-				"buffer_size": 2493,
+				"buffer_size": 3559,
 				"line_ending": "Unix"
 			}
 		},
@@ -66,7 +83,7 @@
 			"file": "Monitor.c",
 			"settings":
 			{
-				"buffer_size": 396,
+				"buffer_size": 2036,
 				"line_ending": "Unix"
 			}
 		},
@@ -74,7 +91,7 @@
 			"file": "Monitor.h",
 			"settings":
 			{
-				"buffer_size": 174,
+				"buffer_size": 261,
 				"line_ending": "Unix"
 			}
 		},
@@ -82,7 +99,7 @@
 			"file": "AdministradorProcesos.c",
 			"settings":
 			{
-				"buffer_size": 1214,
+				"buffer_size": 2040,
 				"line_ending": "Unix"
 			}
 		},
@@ -90,7 +107,7 @@
 			"file": "AdministradorProcesos.h",
 			"settings":
 			{
-				"buffer_size": 329,
+				"buffer_size": 376,
 				"line_ending": "Unix"
 			}
 		},
@@ -98,7 +115,7 @@
 			"file": "recursos/procesoCliente.c",
 			"settings":
 			{
-				"buffer_size": 1234,
+				"buffer_size": 1247,
 				"line_ending": "Unix",
 				"name": "#include <stdlib.h>"
 			}
@@ -115,7 +132,7 @@
 			"file": "recursos/vector.c",
 			"settings":
 			{
-				"buffer_size": 1413,
+				"buffer_size": 1472,
 				"line_ending": "Unix"
 			}
 		},
@@ -123,7 +140,7 @@
 			"file": "recursos/vector.h",
 			"settings":
 			{
-				"buffer_size": 577,
+				"buffer_size": 611,
 				"line_ending": "Unix"
 			}
 		},
@@ -199,6 +216,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"w",
+			"status",
+			"stderr",
+			"iniciar",
 			"iniciarProcesoCliente",
 			"\"\n",
 			"reindent",
@@ -226,7 +247,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -234,24 +255,25 @@
 					"file": "Main.c",
 					"settings":
 					{
-						"buffer_size": 4041,
+						"buffer_size": 5084,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1603,
-								1603
+								4294,
+								4294
 							]
 						],
 						"settings":
 						{
 							"auto_name": "",
-							"syntax": "Packages/C++/C.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 867.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -261,15 +283,15 @@
 					"file": "NubeSoftClient.c",
 					"settings":
 					{
-						"buffer_size": 2493,
+						"buffer_size": 3559,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1202,
-								1202
+								1106,
+								1106
 							]
 						],
 						"settings":
@@ -279,7 +301,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 860.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -296,8 +318,8 @@
 						"selection":
 						[
 							[
-								14,
-								14
+								25,
+								25
 							]
 						],
 						"settings":
@@ -341,15 +363,15 @@
 					"file": "Monitor.c",
 					"settings":
 					{
-						"buffer_size": 396,
+						"buffer_size": 2036,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								142,
-								142
+								124,
+								124
 							]
 						],
 						"settings":
@@ -368,15 +390,15 @@
 					"file": "Monitor.h",
 					"settings":
 					{
-						"buffer_size": 174,
+						"buffer_size": 261,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								164,
-								164
+								253,
+								253
 							]
 						],
 						"settings":
@@ -394,15 +416,15 @@
 					"file": "AdministradorProcesos.c",
 					"settings":
 					{
-						"buffer_size": 1214,
+						"buffer_size": 2040,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								61,
-								61
+								387,
+								387
 							]
 						],
 						"settings":
@@ -421,15 +443,15 @@
 					"file": "AdministradorProcesos.h",
 					"settings":
 					{
-						"buffer_size": 329,
+						"buffer_size": 376,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								264,
-								264
+								207,
+								207
 							]
 						],
 						"settings":
@@ -448,15 +470,15 @@
 					"file": "recursos/procesoCliente.c",
 					"settings":
 					{
-						"buffer_size": 1234,
+						"buffer_size": 1247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								432,
-								432
+								1200,
+								1200
 							]
 						],
 						"settings":
@@ -483,8 +505,8 @@
 						"selection":
 						[
 							[
-								79,
-								79
+								40,
+								40
 							]
 						],
 						"settings":
@@ -502,15 +524,15 @@
 					"file": "recursos/vector.c",
 					"settings":
 					{
-						"buffer_size": 1413,
+						"buffer_size": 1472,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								379,
-								379
+								1385,
+								1385
 							]
 						],
 						"settings":
@@ -520,7 +542,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 306.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -530,15 +552,15 @@
 					"file": "recursos/vector.h",
 					"settings":
 					{
-						"buffer_size": 577,
+						"buffer_size": 611,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								123,
-								123
+								559,
+								559
 							]
 						],
 						"settings":
@@ -563,15 +585,15 @@
 						"selection":
 						[
 							[
-								51,
-								51
+								136,
+								136
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
-						"translation.x": 0.0,
+						"translation.x": 233.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
