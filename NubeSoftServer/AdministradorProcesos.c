@@ -18,16 +18,13 @@ void * notificarTerminacionCliente( void * param){
 		
 		 long * parametros=param;
 		 int cpid=(int)*parametros;
-		 int status;
-
-		
+		 int status;	
 
 		 pid_t w;
 		 fprintf(stderr,"Waiting in the father %ld for child %d\n",(long) getpid(),cpid);
 		 w = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-		 printf("\nSenal enviada a %d\n",cpid);
-		  operacionProceso(1,  cpid); //kill
-		 
+		// printf("\nSenal enviada a %d\n",cpid);
+		 eliminarProceso(cpid); //kill		 
 		 fprintf(stderr,"\nProceso cliente finalizado\n");
 		 
 		 /// PONER EN INFO PROCES TERMINADO			 */
@@ -64,8 +61,7 @@ int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 		 exit(EXIT_SUCCESS);
 		 
 	 } else {		
-	 	iniciarMonitoreo(cpid);
-	 	
+	 	iniciarMonitoreo(cpid);	 	
  		pids[thread_count]=(long)cpid;
 	 	pthread_create(&esperarTerminarCliente[thread_count],&attr[thread_count],notificarTerminacionCliente,(void*)&pids[thread_count]);
 	 	thread_count++;

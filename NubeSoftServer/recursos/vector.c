@@ -25,14 +25,20 @@ void vector_append(Vector *vector, int value, float uso) {
   vector->uso[size] = uso;
 }
 
-float vector_get(Vector *vector, int index) {
+float vector_get_USO(Vector *vector, int index) {
   if (index >= vector->size || index < 0) {
     printf("Index %d out of bounds for vector of size %d\n", index, vector->size);
     exit(1);
   }
   return vector->uso[index];
 }
-
+int vector_get_PID(Vector *vector, int index) {
+  if (index >= vector->size || index < 0) {
+    printf("Index %d out of bounds for vector of size %d\n", index, vector->size);
+    exit(1);
+  }
+  return vector->data[index];
+}
 void vector_set(Vector *vector, int index, int value,float uso) {
   // zero fill the vector up to the desired index
   while (index >= vector->size) {
@@ -79,9 +85,10 @@ for (c = 0 ; c < ( vector_size(vector) - 1 ); c++)
  
 }
 
-void encolar(Vector * cola, Vector *vector, int pid, Vector * nuevoVector){
+void vector_encolar(Vector * cola, Vector *vector, int pid){
   int d;
-  
+ Vector nuevoVector;
+ vector_init(&nuevoVector);
   
   for (d = 0 ; d <  vector_size(vector); d++)
       {
@@ -94,29 +101,71 @@ void encolar(Vector * cola, Vector *vector, int pid, Vector * nuevoVector){
         }else{          
            int swap       = vector->data[d];          
            float swapUso       = vector->uso[d];
-           vector_append(nuevoVector, swap,swapUso);
+           vector_append(&nuevoVector, swap,swapUso);
         }
       }
      
-      
+  vector_free(vector);  
+  vector_init(vector);
+  for (d = 0 ; d <  vector_size(&nuevoVector); d++)
+        {       
+           int swap       =        vector_get_PID(&nuevoVector,d);
+           float swapUso       = vector_get_USO(&nuevoVector,d);
+           vector_append(vector, swap,swapUso);       
+      } 
+
+       vector_free(&nuevoVector);
 }
-void desencolar(Vector * cola, Vector *vector,Vector *nuevaCola){
+void vector_desencolar(Vector * cola, Vector *vector){
   int d;
   int swap       = cola->data[0];         
     float swapUso       = cola->uso[0];
     vector_append(vector, swap,swapUso);
           
-  
+  Vector nuevaCola;
+  vector_init(&nuevaCola);
   for (d = 1 ; d <  vector_size(cola); d++)
       {             
            int swap       = cola->data[d];          
            float swapUso       = cola->uso[d];
-           vector_append(nuevaCola, swap,swapUso);        
+           vector_append(&nuevaCola, swap,swapUso);        
       }
+    vector_free(cola);  
+      vector_init(cola);
+       for (d = 0 ; d <  vector_size(&nuevaCola); d++)
+        {       
+           int swap       =        vector_get_PID(&nuevaCola,d);
+           float swapUso       = vector_get_USO(&nuevaCola,d);
+           vector_append(cola, swap,swapUso);       
+      } 
+       vector_free(&nuevaCola);
      
       
 }
 
+void vector_eliminar( Vector *vector, int pid){
+    int d;    
+  Vector  nuevoVector;
+  vector_init(&nuevoVector);
+  for (d = 0 ; d <  vector_size(vector); d++)
+      {
+        if (!(vector->data[d] == pid)) { 
+           int swap       = vector->data[d];          
+           float swapUso       = vector->uso[d];
+           vector_append(&nuevoVector, swap,swapUso);
+        }
+      } 
+      vector_free(vector);  
+      vector_init(vector);
+  for (d = 0 ; d <  vector_size(&nuevoVector); d++)
+        {       
+           int swap       =        vector_get_PID(&nuevoVector,d);
+           float swapUso       = vector_get_USO(&nuevoVector,d);
+           vector_append(vector, swap,swapUso);       
+      } 
+
+       vector_free(&nuevoVector);
+}
 
 void vector_free(Vector *vector) {
   free(vector->data);

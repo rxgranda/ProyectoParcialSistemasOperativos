@@ -15,7 +15,9 @@ void vector_init(Vector *vector);
 
 void vector_append(Vector *vector, int value, float uso);
 
-float vector_get(Vector *vector, int index);
+float vector_get_USO(Vector *vector, int index);
+
+int vector_get_PID(Vector *vector, int index);
 
 void vector_set(Vector *vector, int index, int value,float uso);
 
@@ -25,8 +27,10 @@ int vector_size(Vector *vector);
 
 int vector_ordenar(Vector *vector);
 
-void encolar(Vector * cola, Vector *vector, int pid, Vector * nuevoVector);
+void vector_encolar(Vector * cola, Vector *vector, int pid);
 
-void desencolar(Vector * cola, Vector *vector,Vector *nuevaCola);
+void vector_desencolar(Vector * cola, Vector *vector);
+
+void vector_eliminar( Vector *vector, int pid);
 
 void vector_free(Vector *vector);

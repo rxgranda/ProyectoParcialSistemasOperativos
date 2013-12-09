@@ -43,6 +43,7 @@ for (i=1;i<=N;i++){
 	usleep((unsigned int)time_io_burst*1000);
 }
 printf("\nFin cliente");
+ exit(EXIT_SUCCESS);
 return 0;
 //colocar aqui envio de mensaje de hora fin
 

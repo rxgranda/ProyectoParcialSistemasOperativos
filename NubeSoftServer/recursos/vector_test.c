@@ -8,49 +8,16 @@ Vector cola;
 Vector nuevoVector;
 Vector nuevaCola;
 
-void encolar(Vector * cola, Vector *vector, int pid, Vector * nuevoVector){
-	int d;
-	
-	
-	for (d = 0 ; d <  vector_size(vector); d++)
-	    {
-	      if (vector->data[d] == pid) /* For decreasing order use < */
-	      {
-	        int swap       = vector->data[d];	        
-	        float swapUso       = vector->uso[d];
-	        vector_append(cola, swap,swapUso);
-	        
-	      }else{	      	
-	      	 int swap       = vector->data[d];	        
-	       	 float swapUso       = vector->uso[d];
-	       	 vector_append(nuevoVector, swap,swapUso);
-	      }
-	    }
-	   
-	    
-}
-void desencolar(Vector * cola, Vector *vector,Vector *nuevaCola){
-	int d;
-	int swap       = cola->data[0];	        
-    float swapUso       = cola->uso[0];
-    vector_append(vector, swap,swapUso);
-	        
-	
-	for (d = 1 ; d <  vector_size(cola); d++)
-	    {	     	      
-	      	 int swap       = cola->data[d];	        
-	       	 float swapUso       = cola->uso[d];
-	       	 vector_append(nuevaCola, swap,swapUso);	      
-	    }
-	   
-	    
-}
+  
+
+
+
 
 int main() {
   vector_init(&vector); 
    vector_init(&cola); 
    vector_init(&nuevoVector);  
-vector_init(&nuevaCola);
+//vector_init(&nuevaCola);
 
    int i;
   float f=0.0;
@@ -60,9 +27,30 @@ vector_init(&nuevaCola);
     f++;
   }
   for (i = 0; i < vector_size(&vector); i++) {
-     printf("%4.2f \n",vector_get(&vector, i));
+     printf("%4.2f \n",vector_get_USO(&vector, i));
  }
-   encolar(&cola,&vector,10, &nuevoVector);
+ //eliminar(&vector,5);
+    encolar(&cola,&vector,10);
+     encolar(&cola,&vector,11);
+ printf("***************************** \n");
+   for (i = 0; i < vector_size(&vector); i++) {
+     printf("%4.2f \n",vector_get_USO(&vector, i));
+ }
+printf("***************************** \n");
+  for (i = 0; i <  vector_size(&cola); i++) {
+     printf("%4.2f \n",vector_get_USO(&cola, i));
+ }
+ desencolar(&cola,&vector);
+
+ printf("***************************** \n");
+   for (i = 0; i < vector_size(&vector); i++) {
+     printf("%4.2f \n",vector_get_USO(&vector, i));
+ }
+printf("***************************** \n");
+  for (i = 0; i <  vector_size(&cola); i++) {
+     printf("%4.2f \n",vector_get_USO(&cola, i));
+ }
+ /*  encolar(&cola,&vector,10, &nuevoVector);
 printf("***************************** \n");
   for (i = 0; i < vector_size(&nuevoVector); i++) {
      printf("%4.2f \n",vector_get(&nuevoVector, i));
@@ -109,6 +97,6 @@ for (i = 0; i < 20; i++) {
 */
 
 vector_free(&vector);
-  vector_free(&cola);
+ // vector_free(&cola);
    vector_free(&nuevoVector);
 }
