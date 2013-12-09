@@ -20,4 +20,6 @@ void vector_set(Vector *vector, int index, int value);
 
 void vector_double_capacity_if_full(Vector *vector);
 
+int vector_size(Vector *vector);
+
 void vector_free(Vector *vector);

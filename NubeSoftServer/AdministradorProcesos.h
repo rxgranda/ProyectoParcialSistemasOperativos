@@ -9,6 +9,7 @@ typedef struct {
 } Cliente;
 
 int iniciarClienteSimulado(int perc_cpu,int max_time,int N);
+//void* iniciarClienteSimulado(void * param);
 int estadoProcesoCliente();
 int enviarSenialProceso();
 

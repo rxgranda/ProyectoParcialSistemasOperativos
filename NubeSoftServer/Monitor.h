@@ -5,5 +5,6 @@
 
 int iniciarMonitoreo(int pid);  /* An example function declaration */
 void init_Monitor(int yMax,int yMin, int z);
+float infoCpuLoad(int pid);
 
 #endif

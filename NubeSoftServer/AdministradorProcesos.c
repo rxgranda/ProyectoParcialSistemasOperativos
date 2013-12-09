@@ -2,11 +2,37 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <pthread.h>
 #include "AdministradorProcesos.h"
+#include "Monitor.h"
+
+#define MAX_THREAD_COUNT 1000
+int thread_count=0;
+pthread_attr_t attr [MAX_THREAD_COUNT];
+pthread_t esperarTerminarCliente[MAX_THREAD_COUNT];
+
+void * notificarTerminacionCliente( void * param){
+
+		
+		 long * parametros=param;
+		 int cpid=(int)*parametros;
+		 int status;
+
+		
+
+		 pid_t w;
+		 fprintf(stderr,"Waiting in the father %ld for child %d\n",(long) getpid(),cpid);
+		 w = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
+
+		 fprintf(stderr,"\nProceso cliente finalizado\n");
+		 
+		 /// PONER EN INFO PROCES TERMINADO			 */
+}
 
 int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
-	pid_t cpid, w;
-	int status;
+//void* iniciarClienteSimulado(void * param){
+	
+	pid_t cpid;	
 	char *argv[5];
 	char tmp1[20];
 	char tmp2[20];
@@ -33,14 +59,21 @@ int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 		 printf("Inside original child\n");
 		 exit(EXIT_SUCCESS);
 		 
-	 } else {                    // Code executed by parent 
-		 fprintf(stderr,"Waiting in the father %ld for child %d\n",(long) getpid(),cpid);
-		 w = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-		 fprintf(stderr,"\nProceso cliente finalizado\n");			 
-		// exit(EXIT_SUCCESS);
+	 } else {		
+	 	iniciarMonitoreo(cpid);
+	 	long  parametrosH[1];
+ 		parametrosH[0]=(long)cpid;
+	 	pthread_create(&esperarTerminarCliente[thread_count],&attr[thread_count],notificarTerminacionCliente,(void*)parametrosH);
+	 	thread_count++;
+	 	 // float carga=infoCpuLoad(cpid);
+	   
+		
 	 }
-		 //printf("\nHola");	
+		
+
 	
+	 //long * parametros=param;
+	 //printf("CPU BURST %ld\n", *parametros);
 }
 
 int estadoProcesoCliente(int pid){

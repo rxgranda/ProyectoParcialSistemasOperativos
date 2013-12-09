@@ -47,7 +47,10 @@ void vector_double_capacity_if_full(Vector *vector) {
     vector->data = realloc(vector->data, sizeof(int) * vector->capacity);
   }
 }
+int vector_size(Vector *vector){
+  return vector->size ;
 
+}
 void vector_free(Vector *vector) {
   free(vector->data);
 }

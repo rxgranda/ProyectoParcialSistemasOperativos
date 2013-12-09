@@ -51,7 +51,11 @@ void *nuevoCliente(void * param){
 		 	iteraciones=atoi(ch);			
 			write(client_sockfd, ok, 1);
 
-
+	/*long  parametrosH[3];
+ 	parametrosH[0]=(long)cpu_burst;
+ 	parametrosH[1]=(long)tiempo;
+ 	parametrosH[2]=(long)iteraciones;
+ 	pthread_create(&monitorProcesos,&attr,iniciarClienteSimulado,(void* )parametrosH);*/
 			iniciarClienteSimulado(cpu_burst,tiempo,iteraciones);
 			
 	
