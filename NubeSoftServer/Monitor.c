@@ -1,6 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <string.h>
+#include <signal.h>
 #include "Monitor.h"
 #include "recursos/vector.h"
 
@@ -52,6 +53,28 @@ void init_Monitor(int yMaxT,int yMinT, int zT){
 
 }
 
+void operacionProceso(int operacion, int pid){
+
+ 		switch(operacion) {
+ 			case 1://kill
+ 			kill (cpid, SIGTERM);
+ 			
+ 			
+ 			break;
+
+ 			case 2: //pausar
+ 			
+ 			
+ 			
+ 			break;
+
+ 			case 3://continuar  
+ 			
+ 			
+ 			break;
+		}
+
+}
 
 
 float infoCpuLoad(int pid){

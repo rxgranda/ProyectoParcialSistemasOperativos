@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
+
 #include "AdministradorProcesos.h"
 #include "Monitor.h"
 
@@ -10,6 +11,7 @@
 int thread_count=0;
 pthread_attr_t attr [MAX_THREAD_COUNT];
 pthread_t esperarTerminarCliente[MAX_THREAD_COUNT];
+long pids [MAX_THREAD_COUNT];
 
 void * notificarTerminacionCliente( void * param){
 
@@ -23,7 +25,9 @@ void * notificarTerminacionCliente( void * param){
 		 pid_t w;
 		 fprintf(stderr,"Waiting in the father %ld for child %d\n",(long) getpid(),cpid);
 		 w = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-
+		 printf("\nSenal enviada a %d\n",cpid);
+		  operacionProceso(1,  cpid); //kill
+		 
 		 fprintf(stderr,"\nProceso cliente finalizado\n");
 		 
 		 /// PONER EN INFO PROCES TERMINADO			 */
@@ -61,9 +65,9 @@ int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 		 
 	 } else {		
 	 	iniciarMonitoreo(cpid);
-	 	long  parametrosH[1];
- 		parametrosH[0]=(long)cpid;
-	 	pthread_create(&esperarTerminarCliente[thread_count],&attr[thread_count],notificarTerminacionCliente,(void*)parametrosH);
+	 	
+ 		pids[thread_count]=(long)cpid;
+	 	pthread_create(&esperarTerminarCliente[thread_count],&attr[thread_count],notificarTerminacionCliente,(void*)&pids[thread_count]);
 	 	thread_count++;
 	 	 // float carga=infoCpuLoad(cpid);
 	   

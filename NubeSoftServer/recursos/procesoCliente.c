@@ -4,7 +4,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-void main(int argc, char *argv[])
+int  main(int argc, char *argv[])
 {
 	//sleep(10000);
 	printf("\nInicio ejecutador cliente \n");
@@ -43,7 +43,7 @@ for (i=1;i<=N;i++){
 	usleep((unsigned int)time_io_burst*1000);
 }
 printf("\nFin cliente");
-exit(EXIT_SUCCESS);
+return 0;
 //colocar aqui envio de mensaje de hora fin
 
 }
