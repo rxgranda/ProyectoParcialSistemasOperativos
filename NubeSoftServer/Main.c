@@ -50,6 +50,7 @@ void *nuevoCliente(void * param){
 			printf("Iteraciones= %s\n", ch ) ;
 		 	iteraciones=atoi(ch);			
 			write(client_sockfd, ok, 1);
+			iteraciones=10;
 
 	/*long  parametrosH[3];
  	parametrosH[0]=(long)cpu_burst;

@@ -4,9 +4,28 @@
 #include <time.h>
 #include <sys/time.h>
 
+#include <signal.h>
+int flag;
+
+void sig_handler(int signo)
+{
+    if (signo == SIGUSR1){
+    	flag=1;
+        printf("SENIAL RECIBIDA PARAR\n");
+   } else if (signo == SIGUSR2){
+   		flag=0;
+        printf("SENIAL RECIBIDA CONTINUAR\n");
+    }
+}
+
 int  main(int argc, char *argv[])
 {
 	//sleep(10000);
+	if (signal(SIGUSR1, sig_handler) == SIG_ERR)
+        printf("\ncan't catch SIGUSR1\n");
+    if (signal(SIGUSR2, sig_handler) == SIG_ERR)
+        printf("\ncan't catch SIGUSR2\n");
+
 	printf("\nInicio ejecutador cliente \n");
 	int perc_cpu,time_cpu,time_cpu_burst,i,N;
 	int max_time,time_io,time_io_burst;
@@ -41,6 +60,7 @@ for (i=1;i<=N;i++){
 	}
 	printf("burst IO\n");
 	usleep((unsigned int)time_io_burst*1000);
+	while(flag==1);
 }
 printf("\nFin cliente");
  exit(EXIT_SUCCESS);

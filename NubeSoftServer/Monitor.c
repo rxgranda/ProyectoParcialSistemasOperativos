@@ -3,11 +3,15 @@
 #include <string.h>
 #include <signal.h>
 #include "Monitor.h"
+#include "InfoProcesos.h"
 #include "recursos/vector.h"
 
 
 Vector procesosClientes;
 Vector procesosSuspendidos;
+
+
+
 
 int yMax;
 int yMin;
@@ -26,10 +30,14 @@ int iniciarMonitoreo( int pid){
 		bloqueoInicio=1;
 		while (bloqueo==1||bloqueoRegulacion==1)
 			usleep(100);
-		vector_append(&procesosClientes, pid,0.0);
+		vector_append(&procesosClientes, pid,0);//infoCpuLoad(pid));
 		//vector_ordernar(&procesosClientes); 	
 		printf("\nAgregado al monitor PID=%d",pid);
+		nuevoProceso(pid);
 		bloqueoInicio=0;
+		
+		
+ 
 	
 	return pid;
 }
@@ -63,10 +71,10 @@ int calcularEstadistica(){
 			printf("\nLa carga del proceso  %d es %f", pid, cpuLoad);
 		}
 }
-if (flag>0)
+//if (flag>0)
 	return 0;
-else 
-	return -1;
+//else 
+//	return -1;
 }
 int regularProcesos(){
 	bloqueoRegulacion=1;
@@ -79,13 +87,13 @@ int regularProcesos(){
 
 	if (flag==-1){
 		bloqueoRegulacion=0;
-		printf("\nFinaliza Regulacion");
+		printf("\nFinaliza Regulacion por no tener procesos");
 		return 0;
 	}
 		
 	
 	float cargaCPUPromedio=acumuladorCPU/(float)numProcesosCPU;	
-	while(cargaCPUPromedio>yMax||cargaCPUPromedio<yMin){
+	if(cargaCPUPromedio>yMax||cargaCPUPromedio<yMin){
 		vector_ordernar(&procesosClientes);
 		if(cargaCPUPromedio>(float)yMax){			
 			
@@ -96,22 +104,26 @@ int regularProcesos(){
 		}
 		if(cargaCPUPromedio<(float)yMin){
 			if(vector_size(&procesosSuspendidos)<1){
-				return 0;	
 				bloqueoRegulacion=0;
+					printf("\nFinaliza Regulacion, la cola de espera esta vacia");
+				return 0;	
+				
 				}	
 			int pid=vector_get_PID(&procesosSuspendidos, 0);	
 			vector_desencolar(&procesosSuspendidos,&procesosClientes);
-			operacionProceso(2,pid); // SUSPENDER
+			operacionProceso(2,pid); // Reanudar
 		}
 		
 		reinciarEstadistica();
 		flag=calcularEstadistica();
 
-		if(flag!=-1)
+		if(flag!=-1){
 			cargaCPUPromedio=acumuladorCPU/(float)numProcesosCPU;
-		else
+		printf("\n La carga Promedio es %4.8f", cargaCPUPromedio);
+		}else{
 			cargaCPUPromedio=0.0;
-		printf("\n La carga Promedio es %4.8f", cargaCPUPromedio);	
+		printf("\n La carga Promedio es FlAG -1 %4.8f", cargaCPUPromedio);	
+		}
 	}
 	bloqueoRegulacion=0;
 	printf("\nFinaliza Regulacion");
@@ -129,12 +141,15 @@ void *monitor(){
 			int size=vector_size(&procesosClientes);
 			if(size>0){				
 				regularProcesos();
-				}
 				
+				
+			}else{
+				resumenGlobal();
 			}
 		
 
 	}
+}
 
 
 void init_Monitor(int yMaxT,int yMinT, int zT){
@@ -159,7 +174,8 @@ while (bloqueoInicio==1||bloqueoRegulacion==1)
 	bloqueo=1;	 		 	
  			printf("\n2.Terminar a %d\n",pid); 			
  			vector_eliminar(&procesosClientes,pid);
- 			//vector_ordernar(&procesosClientes); 			
+ 			//vector_ordernar(&procesosClientes); 
+ 			registrarProceso(1,pid);			
  			kill (pid, SIGTERM); 			 	 	
 	bloqueo=0;
 
@@ -168,14 +184,16 @@ while (bloqueoInicio==1||bloqueoRegulacion==1)
 void operacionProceso(int operacion, int pid){
 		switch(operacion) {
 			case 1://Pausar
-			printf("\nPausar a PID %d\n",pid); 							
-			kill (pid, SIGTSTP);
+			printf("\nPausar a PID %d\n",pid);
+			registrarProceso(1,pid); 							
+			kill (pid, SIGUSR1);
 			 	
 			break;
 
 			case 2: //reinciar
-			printf("\nReiniciar a PID %d\n",pid); 						
-			kill (pid, SIGCONT);
+			printf("\nReiniciar a PID %d\n",pid); 
+			registrarProceso(2,pid);						
+			kill (pid, SIGUSR2);
 			
 			
 			break;
@@ -221,10 +239,10 @@ float infoCpuLoad(int pid){
 
   /* close */
   pclose(fp);
-  if(cpu>100.0|| cpu<0.0)
+  if(cpu<0.0)
   	return 0.0;
   else
-  return cpu;
+  return cpu/4.0;
 
 }
 

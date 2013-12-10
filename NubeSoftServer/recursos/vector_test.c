@@ -3,17 +3,153 @@
 
 #include <stdio.h>
 #include "vector.h"
+#include <sys/time.h>
+
+#include <unistd.h>
 Vector vector;
 Vector cola;
 Vector nuevoVector;
 Vector nuevaCola;
 
-  
+  unsigned long inicio;
+unsigned long fin;
+
+
+
+#define MAX_THREAD_COUNT 1000
+long resumen[MAX_THREAD_COUNT][4];
+int acumulador;
+void resumenGlobal(){
+	printf("+++++Resumen Global ejecucion++++++++\nPID   Tiempo ejecucion   Tiempo Espera\n");
+	int i;
+	for (i = 0; i < acumulador; ++i)
+	{
+
+		printf("%ld %ld %ld %ld\n",resumen[i][0],resumen[i][1],resumen[i][2] );	
+
+
+		/* code */
+	}
+}
+
+int nuevoProceso(int pid){
+	struct timeval  end;
+
+    long mtime, seconds, useconds;    
+        
+    gettimeofday(&end, NULL);
+
+    seconds  = end.tv_sec   ;
+    useconds = end.tv_usec;
+
+    mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;
+	resumen[acumulador][0]=(long)pid;
+	resumen[acumulador][1]=0;
+	resumen[acumulador][2]=0;
+	resumen[acumulador][3]=mtime;	
+	//printf("\n%ld\n AA",mtime );
+	acumulador++;
+}
+
+int buscar(int pid){
+	int i;
+	for ( i = 0; i < acumulador; ++i)
+	{
+		if(resumen[i][0]==pid)
+			return i;
+
+		/* code */
+	}
+	return -1;
+}
+
+
+
+
+
+int registrarProceso(int opt,int pid){
+	int i=buscar(pid);
+	if(i==-1) 
+		return 0;
+	struct timeval end;
+
+    long mtime, seconds, useconds;    
+        
+    gettimeofday(&end, NULL);
+
+    seconds  = end.tv_sec   ;
+    useconds = end.tv_usec;
+
+    mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;
+    
+    if(opt==1)	// 1 PAUSAR // 2CONTINUAR
+    	resumen[i][opt]+=mtime-resumen[i][3]; // Guardar ejecucion
+    else 
+    	resumen[i][opt]+=mtime-resumen[i][3]; // Guardar pausa
+    //else // pausa
+    	//resumen[i][opt]=mtime-resumen[i][3];
+
+    resumen[i][3]=mtime; //
+
+    printf("\n%ld\n AA",resumen[i][3] );
+
+   // printf("Elapsed time: %ld milliseconds\n", mtime);
+	return 0;
+}
+
+
 
 
 
 
 int main() {
+
+nuevoProceso(1);
+nuevoProceso(2);
+nuevoProceso(3);
+
+usleep(1000000);
+registrarProceso(1,1);
+usleep(1000000);
+usleep(1000000);
+//usleep(1000000);
+registrarProceso(2,1);
+usleep(1000000);
+usleep(1000000);
+registrarProceso(1,1);
+//registrarProceso(22,1);
+//usleep(1000000);
+resumenGlobal();
+
+
+
+
+
+
+
+
+
+
+
+
+	/*struct timeval start, end;
+
+    long mtime, seconds, useconds;    
+
+    gettimeofday(&start, NULL);
+    usleep(2000);
+    gettimeofday(&end, NULL);
+
+    seconds  = end.tv_sec  - start.tv_sec;
+    useconds = end.tv_usec - start.tv_usec;
+
+    mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;
+
+    printf("Elapsed time: %ld milliseconds\n", mtime);
+
+    return 0;
+
+	/*
   vector_init(&vector); 
    vector_init(&cola); 
    vector_init(&nuevoVector);  
@@ -96,7 +232,7 @@ for (i = 0; i < 20; i++) {
   //printf("Heres the value at 27: %d\n", vector_get(&vector, 0));
 */
 
-vector_free(&vector);
+//vector_free(&vector);
  // vector_free(&cola);
-   vector_free(&nuevoVector);
+  // vector_free(&nuevoVector);
 }
