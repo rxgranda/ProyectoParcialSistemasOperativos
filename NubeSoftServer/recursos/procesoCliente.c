@@ -5,17 +5,27 @@
 #include <sys/time.h>
 
 #include <signal.h>
-int flag;
+static volatile int flag;
 
-void sig_handler(int signo)
+static void sig_handler(int signo)
 {
+	/*
     if (signo == SIGUSR1){
     	flag=1;
-        printf("SENIAL RECIBIDA PARAR\n");
-   } else if (signo == SIGUSR2){
+    	printf("SENIAL RECIBIDA PARAR %d\n", getpid() ); 
+    	while (flag==1) sleep(500)   	
+        
+   } else {
+   	 printf("SENIAL RECIBIDA CONTINUAR %d\n", getpid() );
    		flag=0;
-        printf("SENIAL RECIBIDA CONTINUAR\n");
-    }
+       
+    }*/
+   		sigset_t myset;
+(void) sigemptyset(&myset);
+while (1) {
+    (void) printf("I'm running, waiting for a signal...\n");
+    (void) sigsuspend(&myset);
+}
 }
 
 int  main(int argc, char *argv[])
@@ -50,9 +60,14 @@ time_io_burst=time_io/N;
 printf("Tiempo de cpu burst %d (mseg), Tiempo de IO burst (mseg) %d\n",time_cpu_burst,time_io_burst);
 
 for (i=1;i<=N;i++){
+	//while(flag==1){
+	//	usleep(5000);
+	//}
 	clock_gettime(CLOCK_MONOTONIC,  &t0);
+	
 	diff=0;
 	printf("burst CPU\n");
+	printf("Esperando\n");
 	while(diff<time_cpu_burst)
 	{
 		clock_gettime(CLOCK_MONOTONIC,  &tn);
@@ -60,10 +75,10 @@ for (i=1;i<=N;i++){
 	}
 	printf("burst IO\n");
 	usleep((unsigned int)time_io_burst*1000);
-	while(flag==1);
+
 }
 printf("\nFin cliente");
- exit(EXIT_SUCCESS);
+exit(EXIT_SUCCESS);
 return 0;
 //colocar aqui envio de mensaje de hora fin
 

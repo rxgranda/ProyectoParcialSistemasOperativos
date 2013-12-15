@@ -69,10 +69,21 @@ int registrarProceso(int opt,int pid){
 
     mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;
     
-    if(opt==1)	// 1 PAUSAR // 2CONTINUAR
+    if(opt==1){	// 1 PAUSAR // 2CONTINUAR
     	resumen[i][opt]+=mtime-resumen[i][3]; // Guardar ejecucion
-    else 
+    	printf("\n GUARDANDO ejecucion= %ld\n", mtime-resumen[i][3] ); 
+    	if (mtime-resumen[i][3]<0)
+    	{
+    		printf("ES NEGATIVOOOOOOOOOOOOOOOOOOOOOO\n");
+    	}
+    }else{ 
     	resumen[i][opt]+=mtime-resumen[i][3]; // Guardar pausa
+    	if (mtime-resumen[i][3]<0)
+    	{
+    		printf("ES NEGATIVOOOOOOOOOOOOOOOOOOOOOO\n");
+    	}
+    	printf("\n GUARDANDO PAUSA= %ld\n", mtime-resumen[i][3] ); 
+    }
     //else // pausa
     	//resumen[i][opt]=mtime-resumen[i][3];
 

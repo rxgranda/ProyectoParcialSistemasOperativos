@@ -6,7 +6,7 @@
 #include <sys/time.h>
 
 #include <unistd.h>
-Vector vector;
+/*Vector vector;
 Vector cola;
 Vector nuevoVector;
 Vector nuevaCola;
@@ -28,7 +28,7 @@ void resumenGlobal(){
 		printf("%ld %ld %ld %ld\n",resumen[i][0],resumen[i][1],resumen[i][2] );	
 
 
-		/* code */
+		/* code 
 	}
 }
 
@@ -47,7 +47,6 @@ int nuevoProceso(int pid){
 	resumen[acumulador][1]=0;
 	resumen[acumulador][2]=0;
 	resumen[acumulador][3]=mtime;	
-	//printf("\n%ld\n AA",mtime );
 	acumulador++;
 }
 
@@ -57,8 +56,6 @@ int buscar(int pid){
 	{
 		if(resumen[i][0]==pid)
 			return i;
-
-		/* code */
 	}
 	return -1;
 }
@@ -89,12 +86,59 @@ int registrarProceso(int opt,int pid){
     //else // pausa
     	//resumen[i][opt]=mtime-resumen[i][3];
 
-    resumen[i][3]=mtime; //
-
-    printf("\n%ld\n AA",resumen[i][3] );
-
+    resumen[i][3]=mtime; // 
    // printf("Elapsed time: %ld milliseconds\n", mtime);
 	return 0;
+}
+*/
+
+
+
+float infoCpuLoad(int pid){
+  float cpu;
+  FILE *fp;
+  int status;
+  char path[1035];
+
+  /* Open the command for reading. */
+  const char * str="top -bn 1 | awk 'NR>6{s+=$9} END {print s/4}' ";
+  /*char str2[80];
+  char strtmp1[]="/bin/ps -p ";
+  char strtmp2[]=" -L -o pcpu ";
+  strcpy (str,strtmp1);
+  sprintf(str2, "%d", pid);  
+  strcat (str,str2);
+  strcat (str,strtmp2);*/
+ //printf("%s\n",str );
+  fp = popen(str, "r");
+  if (fp == NULL) {
+    printf("Failed to run command\n" );
+    return 0.0;
+  }
+
+  /* Read the output a line at a time - output it. */
+  int i=0;
+  float acum;
+  while (fgets(path, sizeof(path)-1, fp) != NULL) {
+    //if(i==1){    
+      printf("\n///////// CARGA EN STRING %s\n",path );   
+    sscanf(path, "%f", &cpu);
+      acum+=cpu;
+     // break;
+  //}
+  i++;
+   
+  }
+  printf("\n///////// TOTAL %f\n",acum );
+
+  /* close */
+  pclose(fp);
+  if(cpu<0.0)
+    return 0.0;
+  else
+  return cpu/4.0;
+
+
 }
 
 
@@ -103,8 +147,8 @@ int registrarProceso(int opt,int pid){
 
 
 int main() {
-
-nuevoProceso(1);
+infoCpuLoad(0);
+/*uevoProceso(1);
 nuevoProceso(2);
 nuevoProceso(3);
 
@@ -121,7 +165,7 @@ registrarProceso(1,1);
 //usleep(1000000);
 resumenGlobal();
 
-
+*/
 
 
 

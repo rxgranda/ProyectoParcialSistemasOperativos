@@ -15,7 +15,7 @@
 			"file": "procesoCliente.c",
 			"settings":
 			{
-				"buffer_size": 1234,
+				"buffer_size": 1247,
 				"line_ending": "Unix"
 			}
 		},
@@ -43,7 +43,7 @@
 			"file": "/home/roger/Escritorio/pendientes",
 			"settings":
 			{
-				"buffer_size": 382,
+				"buffer_size": 555,
 				"line_ending": "Unix"
 			}
 		},
@@ -177,7 +177,7 @@
 					"file": "procesoCliente.c",
 					"settings":
 					{
-						"buffer_size": 1234,
+						"buffer_size": 1247,
 						"regions":
 						{
 						},
@@ -211,8 +211,8 @@
 						"selection":
 						[
 							[
-								76,
-								76
+								137,
+								137
 							]
 						],
 						"settings":
@@ -258,15 +258,15 @@
 					"file": "/home/roger/Escritorio/pendientes",
 					"settings":
 					{
-						"buffer_size": 382,
+						"buffer_size": 555,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								382,
-								382
+								555,
+								555
 							]
 						],
 						"settings":
