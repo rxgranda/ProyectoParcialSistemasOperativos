@@ -6,7 +6,7 @@
 
 #include <signal.h>
 static volatile int flag;
-
+sigset_t myset;
 static void sig_handler(int signo)
 {
 	/*
@@ -20,16 +20,20 @@ static void sig_handler(int signo)
    		flag=0;
        
     }*/
-   		sigset_t myset;
-(void) sigemptyset(&myset);
-while (1) {
-    (void) printf("I'm running, waiting for a signal...\n");
+   		//if (signo == SIGUSR1){
+   		
+//while (1) {
+    //(void) printf("I'm running, waiting for a signal...\n");
+    if (signo == SIGUSR1)
     (void) sigsuspend(&myset);
-}
+//}//}
 }
 
 int  main(int argc, char *argv[])
 {
+	
+(void) sigemptyset(&myset);
+sigaddset(&myset,SIGUSR1);
 	//sleep(10000);
 	if (signal(SIGUSR1, sig_handler) == SIG_ERR)
         printf("\ncan't catch SIGUSR1\n");
@@ -67,7 +71,7 @@ for (i=1;i<=N;i++){
 	
 	diff=0;
 	printf("burst CPU\n");
-	printf("Esperando\n");
+	//printf("Esperando\n");
 	while(diff<time_cpu_burst)
 	{
 		clock_gettime(CLOCK_MONOTONIC,  &tn);
