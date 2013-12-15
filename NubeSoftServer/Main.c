@@ -6,10 +6,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include "AdministradorProcesos.h"
 #include "Monitor.h"
 #include "InfoProcesos.h"
+
+
 
 // Constantes
 
@@ -20,6 +23,15 @@ pthread_t infoProcesos;
 pthread_t monitorProcesos;
 pthread_t conexionSocket;
 
+
+sigset_t myset;
+
+static void sig_handler(int signo)
+{
+	resumenGlobal();
+	printf("\n************   Programa Terminado   ************\n"); 	
+	exit(EXIT_SUCCESS);
+}
 
 
 void *nuevoCliente(void * param){
@@ -94,6 +106,11 @@ void* abrirSocket(){
  */
  int  main(int argc, char  *argv[])
  {
+ 	(void) sigemptyset(&myset);
+	sigaddset(&myset,SIGINT);
+	if (signal(SIGINT, sig_handler) == SIG_ERR)
+		printf("\ncan't catch SIGINT\n");
+
  	int yMax;
  	int yMin;
  	int z;
@@ -130,9 +147,7 @@ void* abrirSocket(){
  	init_Monitor(yMax,yMin,z); 	
  	pthread_create(&conexionSocket,&attr,abrirSocket,NULL); 
  	pthread_join(conexionSocket,NULL); 	
-
-
- 	printf("\n************   Programa Terminado   ************\n"); 	
+ 
  	return 0;
  }
 

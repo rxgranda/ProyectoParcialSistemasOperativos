@@ -5,4 +5,5 @@
 	float infoCpuLoad();
 	void eliminarProceso( int pid);
 	void operacionProceso(int operacion, int pid);
+	float processCpuLoad(int pid);
 #endif

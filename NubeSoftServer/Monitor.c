@@ -23,6 +23,7 @@ int bloqueoAccion;
 int bloqueoInicio;
 int bloqueoRegulacion;
 
+
 int iniciarMonitoreo( int pid){	
 	
 	bloqueoInicio=1; //Iniciar Sección crítica
@@ -32,6 +33,8 @@ int iniciarMonitoreo( int pid){
 			usleep(100);
 		vector_append(&procesosClientes, pid,0);	
 		printf("\nAgregado al monitor PID=%d",pid);
+		float cargaCPU=processCpuLoad(pid);
+		resumenProceso(pid,cargaCPU);
 
 	bloqueoInicio=0; //Finalizar Sección crítica
 	return pid;
@@ -39,15 +42,15 @@ int iniciarMonitoreo( int pid){
 
 
 int regularProcesos(){	 
-	printf("\n-->Iniciar Regulacion");
+	printf("\n-->Iniciar Revision carga de Procesos");
 
 	while (bloqueoAccion==1||bloqueoInicio==1)
 		usleep(100);
 	bloqueoRegulacion=1;
 	float cargaCPUPromedio=infoCpuLoad();
-	
+	int cnt=0;
 	while(cargaCPUPromedio>yMax||cargaCPUPromedio<yMin){
-
+		cnt++;
 		vector_ordernar(&procesosClientes);
 	
 		if(cargaCPUPromedio<(float)yMin){
@@ -82,7 +85,14 @@ int regularProcesos(){
 		cargaCPUPromedio=infoCpuLoad();				
 	}
 	bloqueoRegulacion=0;
-	printf("\n-->Finaliza Regulacion");
+	if (cnt!=0)
+	{
+		printf("\n-->Fin Revision de carga Procesos");
+	}else
+	{
+		printf("\n      Sistema estable, no es necesario regular procesos\n-->Fin Revision de carga Procesos");
+	}
+	
 	return 0;
 }
 
@@ -98,9 +108,7 @@ void *monitor(){
 		int sizeSuspendidos=vector_size(&procesosSuspendidos);
 		if(sizeActivos>0||sizeSuspendidos>0){				
 			regularProcesos();
-		}else{
-			resumenGlobal();
-		}		
+		}	
 	}
 }
 
@@ -124,7 +132,9 @@ void eliminarProceso(int pid){
 	bloqueoAccion=1;	 		 	
 	printf("\n << Termina el proceso con PID= %d >>\n",pid); 			
 	vector_eliminar(&procesosClientes,pid);
-	vector_ordernar(&procesosClientes); 
+	vector_ordernar(&procesosClientes);
+	float cargaCPU=processCpuLoad(pid);
+	resumenProceso(pid,cargaCPU);
 	kill (pid, SIGTERM); 			 	 	
 	registrarProceso(1,pid);			
 	bloqueoAccion=0;
@@ -133,13 +143,17 @@ void eliminarProceso(int pid){
 void operacionProceso(int operacion, int pid){
 	switch(operacion) {
 		case 1://Pausar
-		printf("\n    Pausar a PID %d",pid);
+		printf("\n    Pausar proceso PID %d",pid);
+		float cargaCPU=processCpuLoad(pid);
+		resumenProceso(pid,cargaCPU);
 		kill (pid, SIGUSR1);
 		registrarProceso(1,pid); 	
 		break;
 
 		case 2: //reinciar
-		printf("\n    Reiniciar a PID %d",pid); 
+		printf("\n    Reiniciar proceso PID %d",pid); 
+		float cargaCPU2=processCpuLoad(pid);
+		resumenProceso(pid,cargaCPU2);
 		kill (pid, SIGUSR2);
 		registrarProceso(2,pid);						
 		break;
@@ -170,6 +184,40 @@ float infoCpuLoad(){
 	}	
 	pclose(fp);
 	return cpu/4;
+}    
+
+float processCpuLoad(int pid){
+	float cpu;
+	FILE *fp;
+	int status;
+	char path[1035]; 
+	char str[80];
+	char str2[80];
+	char strtmp1[]="/bin/ps -p ";
+	char strtmp2[]=" -L -o pcpu ";
+	strcpy (str,strtmp1);
+	sprintf(str2, "%d", pid);  
+	strcat (str,str2);
+	strcat (str,strtmp2); 
+	fp = popen(str, "r");
+	if (fp == NULL) {
+		printf("Failed to run command\n" );
+		return 0.0;
+	} 
+	int i=0;
+	while (fgets(path, sizeof(path)-1, fp) != NULL) {
+		if(i==1){           
+             
+			sscanf(path, "%f", &cpu);
+			break;
+		}
+		i++;
+	}
+
+	pclose(fp);	   
+	if(cpu<0.0)
+		return 0.0;
+	else
+		return cpu/4.0;
+
 }
-
-

@@ -47,7 +47,7 @@ int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 	}
 
 	 if (cpid == 0) {            //Code executed by child 
-	 	printf("<< Inicializando Proceso Cliente Simulado con PID= %ld >>\n", (long) getpid());
+	 	printf(" << Inicializando Proceso Cliente Simulado con PID= %ld >>\n", (long) getpid());
 	 	argv[0] ="recursos/procesoCliente"; argv[4]=0;
 	 	execv(argv[0], argv);		
 	 	printf("Inside original child\n");
@@ -62,11 +62,5 @@ int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 
 }
 
-int estadoProcesoCliente(int pid){
-	return 0;
-} 
 
-int enviarSenialProceso(){
-	return 0;
-}
 
