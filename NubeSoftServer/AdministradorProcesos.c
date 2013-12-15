@@ -54,7 +54,7 @@ int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 	 	exit(EXIT_SUCCESS);
 
 	 } else {		
-	 	iniciarMonitoreo(cpid);	 	
+	 	iniciarMonitoreoProceso(cpid);	 	
 	 	pids[process_count]=(long)cpid;
 	 	pthread_create(&esperarTerminarCliente[process_count],&attr[process_count],notificarTerminacionCliente,(void*)&pids[process_count]);
 	 	process_count++;	 	 

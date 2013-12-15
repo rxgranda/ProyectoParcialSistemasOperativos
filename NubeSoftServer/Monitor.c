@@ -24,7 +24,7 @@ int bloqueoInicio;
 int bloqueoRegulacion;
 
 
-int iniciarMonitoreo( int pid){	
+int iniciarMonitoreoProceso( int pid){	
 	
 	bloqueoInicio=1; //Iniciar Sección crítica
 
@@ -33,7 +33,7 @@ int iniciarMonitoreo( int pid){
 			usleep(100);
 		vector_append(&procesosClientes, pid,0);	
 		printf("\nAgregado al monitor PID=%d",pid);
-		float cargaCPU=processCpuLoad(pid);
+		float cargaCPU=infoProcessCpuLoad(pid);
 		resumenProceso(pid,cargaCPU);
 
 	bloqueoInicio=0; //Finalizar Sección crítica
@@ -47,7 +47,7 @@ int regularProcesos(){
 	while (bloqueoAccion==1||bloqueoInicio==1)
 		usleep(100);
 	bloqueoRegulacion=1;
-	float cargaCPUPromedio=infoCpuLoad();
+	float cargaCPUPromedio=infoTotalCpuLoad();
 	int cnt=0;
 	while(cargaCPUPromedio>yMax||cargaCPUPromedio<yMin){
 		cnt++;
@@ -82,7 +82,7 @@ int regularProcesos(){
 			operacionProceso(1,pid); // SUSPENDER
 		}
 		
-		cargaCPUPromedio=infoCpuLoad();				
+		cargaCPUPromedio=infoTotalCpuLoad();				
 	}
 	bloqueoRegulacion=0;
 	if (cnt!=0)
@@ -133,7 +133,7 @@ void eliminarProceso(int pid){
 	printf("\n << Termina el proceso con PID= %d >>\n",pid); 			
 	vector_eliminar(&procesosClientes,pid);
 	vector_ordernar(&procesosClientes);
-	float cargaCPU=processCpuLoad(pid);
+	float cargaCPU=infoProcessCpuLoad(pid);
 	resumenProceso(pid,cargaCPU);
 	kill (pid, SIGTERM); 			 	 	
 	registrarProceso(1,pid);			
@@ -144,7 +144,7 @@ void operacionProceso(int operacion, int pid){
 	switch(operacion) {
 		case 1://Pausar
 		printf("\n    Pausar proceso PID %d",pid);
-		float cargaCPU=processCpuLoad(pid);
+		float cargaCPU=infoProcessCpuLoad(pid);
 		resumenProceso(pid,cargaCPU);
 		kill (pid, SIGUSR1);
 		registrarProceso(1,pid); 	
@@ -152,7 +152,7 @@ void operacionProceso(int operacion, int pid){
 
 		case 2: //reinciar
 		printf("\n    Reiniciar proceso PID %d",pid); 
-		float cargaCPU2=processCpuLoad(pid);
+		float cargaCPU2=infoProcessCpuLoad(pid);
 		resumenProceso(pid,cargaCPU2);
 		kill (pid, SIGUSR2);
 		registrarProceso(2,pid);						
@@ -161,7 +161,7 @@ void operacionProceso(int operacion, int pid){
 }
 
 
-float infoCpuLoad(){
+float infoTotalCpuLoad(){
 
 	float cpu;
 	FILE *fp;
@@ -186,7 +186,7 @@ float infoCpuLoad(){
 	return cpu/4;
 }    
 
-float processCpuLoad(int pid){
+float infoProcessCpuLoad(int pid){
 	float cpu;
 	FILE *fp;
 	int status;

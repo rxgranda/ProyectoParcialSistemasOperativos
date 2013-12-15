@@ -4,12 +4,104 @@
 		"selected_items":
 		[
 			[
-				"th",
-				"thread_count"
+				"proc",
+				"proceso"
+			],
+			[
+				"y",
+				"yMax"
+			],
+			[
+				"i",
+				"if	If Condition"
+			],
+			[
+				"Suspe",
+				"procesosSuspendidos"
+			],
+			[
+				"u",
+				"usleep"
+			],
+			[
+				"proceo",
+				"procesos"
+			],
+			[
+				"nuev",
+				"nuevoProceso"
+			],
+			[
+				"r",
+				"resumenGlobal"
+			],
+			[
+				"m",
+				"mtime"
 			],
 			[
 				"p",
 				"printf	printf …"
+			],
+			[
+				"fl",
+				"flag"
+			],
+			[
+				"ve",
+				"vector_size"
+			],
+			[
+				"yM",
+				"yMin"
+			],
+			[
+				"procesos",
+				"procesosSuspendidos"
+			],
+			[
+				"v",
+				"vector_ordernar"
+			],
+			[
+				"o",
+				"operacionProceso"
+			],
+			[
+				"siz",
+				"size_proceso"
+			],
+			[
+				"b",
+				"bloqueoRegulacion"
+			],
+			[
+				"n",
+				"numProcesosCPU"
+			],
+			[
+				"cp",
+				"cpuLoad"
+			],
+			[
+				"vector_",
+				"vector_get"
+			],
+			[
+				"pro",
+				"procesosClientes"
+			],
+			[
+				"vec",
+				"vector_init"
+			],
+			[
+				"de",
+				"desencolar"
+			],
+			[
+				"th",
+				"thread_count"
 			],
 			[
 				"para",
@@ -24,10 +116,6 @@
 				"parametros"
 			],
 			[
-				"y",
-				"yMin"
-			],
-			[
 				"Adm",
 				"administradorProcesos"
 			],
@@ -38,10 +126,6 @@
 			[
 				"ini",
 				"iniciar_cliente"
-			],
-			[
-				"i",
-				"include"
 			]
 		]
 	},
@@ -51,7 +135,7 @@
 			"file": "Main.c",
 			"settings":
 			{
-				"buffer_size": 5084,
+				"buffer_size": 3571,
 				"line_ending": "Unix"
 			}
 		},
@@ -67,7 +151,7 @@
 			"file": "InfoProcesos.c",
 			"settings":
 			{
-				"buffer_size": 139,
+				"buffer_size": 2255,
 				"line_ending": "Unix"
 			}
 		},
@@ -75,7 +159,7 @@
 			"file": "InfoProcesos.h",
 			"settings":
 			{
-				"buffer_size": 160,
+				"buffer_size": 188,
 				"line_ending": "Unix"
 			}
 		},
@@ -83,7 +167,7 @@
 			"file": "Monitor.c",
 			"settings":
 			{
-				"buffer_size": 2036,
+				"buffer_size": 5074,
 				"line_ending": "Unix"
 			}
 		},
@@ -91,7 +175,7 @@
 			"file": "Monitor.h",
 			"settings":
 			{
-				"buffer_size": 261,
+				"buffer_size": 323,
 				"line_ending": "Unix"
 			}
 		},
@@ -99,7 +183,7 @@
 			"file": "AdministradorProcesos.c",
 			"settings":
 			{
-				"buffer_size": 2040,
+				"buffer_size": 1609,
 				"line_ending": "Unix"
 			}
 		},
@@ -107,7 +191,7 @@
 			"file": "AdministradorProcesos.h",
 			"settings":
 			{
-				"buffer_size": 376,
+				"buffer_size": 149,
 				"line_ending": "Unix"
 			}
 		},
@@ -115,16 +199,16 @@
 			"file": "recursos/procesoCliente.c",
 			"settings":
 			{
-				"buffer_size": 1247,
+				"buffer_size": 1599,
 				"line_ending": "Unix",
 				"name": "#include <stdlib.h>"
 			}
 		},
 		{
-			"file": "recursos/procesoCliente.h",
+			"file": "recursos/vector_test.c",
 			"settings":
 			{
-				"buffer_size": 112,
+				"buffer_size": 5937,
 				"line_ending": "Unix"
 			}
 		},
@@ -132,7 +216,7 @@
 			"file": "recursos/vector.c",
 			"settings":
 			{
-				"buffer_size": 1472,
+				"buffer_size": 5038,
 				"line_ending": "Unix"
 			}
 		},
@@ -140,7 +224,7 @@
 			"file": "recursos/vector.h",
 			"settings":
 			{
-				"buffer_size": 611,
+				"buffer_size": 904,
 				"line_ending": "Unix"
 			}
 		},
@@ -157,9 +241,17 @@
 	"build_system": "Packages/User/main.sublime-build",
 	"command_palette":
 	{
-		"height": 117.0,
+		"height": 54.0,
 		"selected_items":
 		[
+			[
+				"reinden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			]
 		],
 		"width": 392.0
 	},
@@ -178,6 +270,7 @@
 	},
 	"file_history":
 	[
+		"/home/roger/Documentos/ProyectoParcialSistemasOperativos/NubeSoftServer/recursos/procesoCliente.h",
 		"/home/roger/Documentos/ProyectoParcialSistemasOperativos/NubesoftClient/NubeSoftClient",
 		"/home/roger/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
 		"/home/roger/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
@@ -216,6 +309,35 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"    %",
+			"infoProcessCpuLoad",
+			"de",
+			"flag",
+			"Cliente",
+			"thread_count",
+			"MAX_THREAD_COUNT",
+			"bloqueo=",
+			"\"bloqueo\"",
+			"bloqueo",
+			"attrMonitor",
+			"bloqueo",
+			"bloqueoInicio",
+			"bloqueo",
+			"MAX_THREAD_COUNT",
+			"conexionSocket",
+			"monitorProcesos",
+			"administradorProcesos",
+			"registrarP",
+			"Index -1 out of bounds for vector of size 0",
+			"acumuladorCPU",
+			"calcularEstadistica",
+			"infoCpuLoad",
+			"5000",
+			"La carga del proceso",
+			"procesosClientes",
+			"&procesosClientes",
+			"procesosClientes",
+			"array",
 			"w",
 			"status",
 			"stderr",
@@ -237,6 +359,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"processCpuLoad",
+			"process_count",
+			"MAX_PROC_COUNT",
+			"bloqueoAccion=",
+			"procesosClientes"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -247,7 +374,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -255,15 +382,15 @@
 					"file": "Main.c",
 					"settings":
 					{
-						"buffer_size": 5084,
+						"buffer_size": 3571,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4294,
-								4294
+								294,
+								294
 							]
 						],
 						"settings":
@@ -273,7 +400,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 357.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -290,8 +417,8 @@
 						"selection":
 						[
 							[
-								1106,
-								1106
+								266,
+								266
 							]
 						],
 						"settings":
@@ -311,20 +438,22 @@
 					"file": "InfoProcesos.c",
 					"settings":
 					{
-						"buffer_size": 139,
+						"buffer_size": 2255,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25,
-								25
+								505,
+								505
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -337,15 +466,15 @@
 					"file": "InfoProcesos.h",
 					"settings":
 					{
-						"buffer_size": 160,
+						"buffer_size": 188,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								71,
-								71
+								104,
+								104
 							]
 						],
 						"settings":
@@ -363,24 +492,25 @@
 					"file": "Monitor.c",
 					"settings":
 					{
-						"buffer_size": 2036,
+						"buffer_size": 5074,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								124,
-								124
+								2682,
+								2682
 							]
 						],
 						"settings":
 						{
 							"auto_name": "",
-							"syntax": "Packages/C++/C.tmLanguage"
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1569.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -390,15 +520,15 @@
 					"file": "Monitor.h",
 					"settings":
 					{
-						"buffer_size": 261,
+						"buffer_size": 323,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								253,
-								253
+								316,
+								316
 							]
 						],
 						"settings":
@@ -416,15 +546,15 @@
 					"file": "AdministradorProcesos.c",
 					"settings":
 					{
-						"buffer_size": 2040,
+						"buffer_size": 1609,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								387,
-								387
+								1607,
+								1607
 							]
 						],
 						"settings":
@@ -433,7 +563,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 714.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -443,15 +573,15 @@
 					"file": "AdministradorProcesos.h",
 					"settings":
 					{
-						"buffer_size": 376,
+						"buffer_size": 149,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								207,
-								207
+								140,
+								140
 							]
 						],
 						"settings":
@@ -470,15 +600,15 @@
 					"file": "recursos/procesoCliente.c",
 					"settings":
 					{
-						"buffer_size": 1247,
+						"buffer_size": 1599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1200,
-								1200
+								1567,
+								1567
 							]
 						],
 						"settings":
@@ -488,51 +618,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 9,
-					"file": "recursos/procesoCliente.h",
+					"file": "recursos/vector_test.c",
 					"settings":
 					{
-						"buffer_size": 112,
+						"buffer_size": 5937,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								40,
-								40
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "recursos/vector.c",
-					"settings":
-					{
-						"buffer_size": 1472,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1385,
-								1385
+								2654,
+								2654
 							]
 						],
 						"settings":
@@ -542,7 +646,35 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 306.0,
+						"translation.y": 1914.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "recursos/vector.c",
+					"settings":
+					{
+						"buffer_size": 5038,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								718,
+								718
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -552,15 +684,15 @@
 					"file": "recursos/vector.h",
 					"settings":
 					{
-						"buffer_size": 611,
+						"buffer_size": 904,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								559,
-								559
+								827,
+								827
 							]
 						],
 						"settings":

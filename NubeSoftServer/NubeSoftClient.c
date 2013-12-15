@@ -17,7 +17,7 @@
 
 
 int nuevoClienteSocket(int perc_cpu,int max_time,int iteraciones){
-  printf("\nIniciar cliente a traves de socket\n");
+ 
   int sockfd;
   int len, rc ;
   struct sockaddr_in address;
@@ -55,16 +55,16 @@ int nuevoClienteSocket(int perc_cpu,int max_time,int iteraciones){
 
   sprintf(iteracionesCliente, "%d", iteraciones);  
   rc = write(sockfd, &iteracionesCliente, 5);     // 10 numero de caracteres escritos
-  read(sockfd, &ch, 1);      
-  printf("Cliente Solicitado = %c\n", ch);  
+  read(sockfd, &ch, 1);       
   close(sockfd);
+  printf ( "\n Nuevo Cliente  CPU= %d , Tiempo= %d\n", perc_cpu,max_time );
   return 0;
 }
 
 
 
 int  main(int argc, char  *argv[]){
-  int N,o,t,iteraciones=1;
+  int N,o,t=0,iteraciones=1;
   long int i;
   int opt = 0;
   while ((opt = getopt(argc, argv, "N:o:t:")) != -1) {
@@ -97,7 +97,7 @@ int  main(int argc, char  *argv[]){
   }
 
   //Tiempo de ejecucion por default
-  if(t==NULL)
+  if(t==0)
     t=3;
 
   if (o==1){
@@ -123,23 +123,23 @@ int  main(int argc, char  *argv[]){
     double a;
     double b;
 
-    long int seed;
+    long long int seed;
     long int seed_init = 123456789;
 
     a = 65.0;
     b = 10.0;
     seed = seed_init;
 
-    printf ( "Tipo de simulacion 3\n Clientes generados con los siguientes parametros:\n" );
+    printf ( "\nTipo de simulacion 3\n Clientes generados con los siguientes parametros:\n" );
     printf ( "  Media  = %f ", a );
     printf ( "  Desviacion Estandard= %f\n", b ); 
     printf ( "\n" );
 
     for ( i = 1; i <= N; i++ )
     {
-      int cpu_burst_normal= i8_normal_ab ( a, b, &seed );
-      printf ( "  %8d  %8d\n", i,cpu_burst_normal );
-      nuevoClienteSocket(cpu_burst_normal,t,iteraciones);
+      long long int  cpu_burst_normal=i8_normal_ab ( a, b, &seed );
+     
+      nuevoClienteSocket(cpu_burst_normal,t,iteraciones);    
     }
 
   }else{
