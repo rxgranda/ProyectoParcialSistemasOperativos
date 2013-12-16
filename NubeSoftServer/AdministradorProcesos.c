@@ -6,15 +6,17 @@
 
 #include "AdministradorProcesos.h"
 #include "Monitor.h"
-
+// Constante
 #define MAX_PROC_COUNT 1000
 
 
 pthread_attr_t attr [MAX_PROC_COUNT];
 pthread_t esperarTerminarCliente[MAX_PROC_COUNT];
 long pids [MAX_PROC_COUNT];
+// Contador de procesos clientes
 int process_count=0;
 
+/*Descripción.-Proceso utilizado para la espera de la terminación de procesos clientes*/
 void * notificarTerminacionCliente( void * param){
 
 	long * parametros=param;
@@ -27,6 +29,8 @@ void * notificarTerminacionCliente( void * param){
 	fprintf(stderr,"\nProceso cliente finalizado\n");	
 }
 
+/*Descripción.- Función utilizada para el la creación de nuevos
+ procesos clientes, en procesos de simulación independientes*/
 int iniciarClienteSimulado(int perc_cpu,int max_time,int N){
 
 	pid_t cpid;	

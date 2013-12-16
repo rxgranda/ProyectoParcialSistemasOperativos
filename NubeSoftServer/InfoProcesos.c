@@ -3,22 +3,27 @@
 #include <unistd.h>
 #include <stdio.h>
 
+// Constante
 #define MAX_PROC_COUNT 1000
 
 long resumen[MAX_PROC_COUNT][4];
-int acumulador=0;
+int acumulador=0; // Contador de procesos creados
 
+/*Descripción.- Función utilizada para la impresión de todo los
+ datos recopilados de procesos cuando el porgrama termina*/
 void resumenGlobal(){
     if(!acumulador==0){
-       printf("\n+++++     Resumen Global ejecucion    ++++++++\n    PID   Tiempo ejecucion   Tiempo Espera\n");
+       printf("\n+++++     Resumen Global ejecucion    ++++++++\n    PID   Tiempo Total ejecucion [mseg]  Tiempo Espera [mseg]\n");
        int i;
        for (i = 0; i < acumulador; ++i)
        {
-          printf("    %ld     %ld            %ld \n",resumen[i][0],resumen[i][1],resumen[i][2] );	
+          printf("    %ld            %ld                %ld \n",resumen[i][0],resumen[i][1],resumen[i][2] );	
         }
     }
 }
 
+/*Descripción.- Función utilizada la creación de un 
+nuevo registro de tiempo de proceso cliente*/
 int nuevoProceso(int pid){
     struct timeval  end;
     long mtime, seconds, useconds;    
@@ -45,8 +50,9 @@ int buscar(int pid){
 
 
 
-
-int registrarProceso(int opt,int pid){
+/*Descripción.- Función utilizada para el registro de 
+tiempo en el cambio de estado de los procesos clientes*/
+int registrarCambioEstadoProceso(int opt,int pid){
     int i=buscar(pid);
     if(i==-1) 
        return 0;
@@ -66,6 +72,7 @@ int registrarProceso(int opt,int pid){
     return 0;
 }
 
+/*Descripción.- Función utilizada para imprimir información recopilada del proceso*/
 int resumenProceso(int pid, float cpu){
      int i=buscar(pid);     
     if(i==-1) 
@@ -76,7 +83,7 @@ int resumenProceso(int pid, float cpu){
     seconds  = end.tv_sec   ;
     useconds = end.tv_usec;
     mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;     
-     printf("\n      --------------------------------------------\n                -- --Resumen Proceso-- --\n        PID        %%cpu     Tiempo ejecucion \n        %d      %4.2f            %ld\n      --------------------------------------------\n",pid,cpu,  resumen[i][1]+mtime-resumen[i][3]);
+     printf("\n      --------------------------------------------\n                -- --Resumen Proceso-- --\n        PID        %%cpu     Tiempo ejecucion [mseg] \n        %d      %4.2f            %ld\n      --------------------------------------------\n",pid,cpu,  resumen[i][1]+mtime-resumen[i][3]);
     return 0;    
 }
 

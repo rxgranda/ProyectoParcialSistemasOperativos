@@ -1,6 +1,6 @@
 #ifndef MONITOR_H_  /* Incluir restriccion */
 #define MONITOR_H_
-	int iniciarMonitoreoProceso(int pid);  /* An example function declaration */
+	int iniciarMonitoreoProceso(int pid);  
 	void init_Monitor(int yMax,int yMin, int z);
 
 	//infoProceso

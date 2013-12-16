@@ -7,23 +7,23 @@
 #include "recursos/vector.h"
 
 
-Vector procesosClientes;
-Vector procesosSuspendidos;
+Vector procesosClientes; // Cola de procesos en ejecución
+Vector procesosSuspendidos; // Cola de procesos suspendidos
 
-
-int yMax;
-int yMin;
-int z;
+int yMax; // Parámetro de carga promedio máxima de CPU
+int yMin; // Parámetros de carga promedio mínima de CPU
+int z; // Intervalo de Monitor
 
 
 pthread_attr_t attrMonitor;
 pthread_t monitorThread;
 
+// Flags utilizados para la ejecución de secciones de código críticas
 int bloqueoAccion;
 int bloqueoInicio;
 int bloqueoRegulacion;
 
-
+/*Descripción.- Función utilizada para el inicio de monitoreo de nuevos clientes */
 int iniciarMonitoreoProceso( int pid){	
 	
 	bloqueoInicio=1; //Iniciar Sección crítica
@@ -40,7 +40,7 @@ int iniciarMonitoreoProceso( int pid){
 	return pid;
 }
 
-
+/*Descripción.- Función utilizada para el control de procesos clientes*/
 int regularProcesos(){	 
 	printf("\n-->Iniciar Revision carga de Procesos");
 
@@ -96,6 +96,7 @@ int regularProcesos(){
 	return 0;
 }
 
+/*Descripción.- Seccion de hilo permanente de monitor*/
 void *monitor(){
 	long nIntervaloEspera=z*1000;
 	int i;
@@ -112,7 +113,7 @@ void *monitor(){
 	}
 }
 
-
+//Inicialización de Monitor
 void init_Monitor(int yMaxT,int yMinT, int zT){
 	vector_init(&procesosClientes);
 	vector_init(&procesosSuspendidos);	
@@ -126,6 +127,7 @@ void init_Monitor(int yMaxT,int yMinT, int zT){
 	pthread_create(&monitorThread,&attrMonitor,monitor,NULL);	
 }
 
+/*Descripción.- Función utilizada paralas acciones a realizar durante la eliminación de un proceso*/
 void eliminarProceso(int pid){
 	while (bloqueoInicio==1||bloqueoRegulacion==1)
 		usleep(100);
@@ -136,10 +138,11 @@ void eliminarProceso(int pid){
 	float cargaCPU=infoProcessCpuLoad(pid);
 	resumenProceso(pid,cargaCPU);
 	kill (pid, SIGTERM); 			 	 	
-	registrarProceso(1,pid);			
+	registrarCambioEstadoProceso(1,pid);			
 	bloqueoAccion=0;
 }
 
+/*Descripción.- Función utilizada paralas acciones a realizar durante la suspensión o reanudación de un proceso*/
 void operacionProceso(int operacion, int pid){
 	switch(operacion) {
 		case 1://Pausar
@@ -147,7 +150,7 @@ void operacionProceso(int operacion, int pid){
 		float cargaCPU=infoProcessCpuLoad(pid);
 		resumenProceso(pid,cargaCPU);
 		kill (pid, SIGUSR1);
-		registrarProceso(1,pid); 	
+		registrarCambioEstadoProceso(1,pid); 	
 		break;
 
 		case 2: //reinciar
@@ -155,12 +158,12 @@ void operacionProceso(int operacion, int pid){
 		float cargaCPU2=infoProcessCpuLoad(pid);
 		resumenProceso(pid,cargaCPU2);
 		kill (pid, SIGUSR2);
-		registrarProceso(2,pid);						
+		registrarCambioEstadoProceso(2,pid);						
 		break;
 	}
 }
 
-
+/*Descripción.- Función utilizada para el calculo de carga de CPU del sistema*/
 float infoTotalCpuLoad(){
 
 	float cpu;
@@ -186,6 +189,7 @@ float infoTotalCpuLoad(){
 	return cpu/4;
 }    
 
+/*Descripción.- Función utilizada para el cálculo de carga de CPU de un proceso específico*/
 float infoProcessCpuLoad(int pid){
 	float cpu;
 	FILE *fp;

@@ -15,7 +15,8 @@
 
 
 
-
+/*Descripción.- Función utilizada para la solicitud
+ de un nuevo cliente a través de una conexión socket*/
 int nuevoClienteSocket(int perc_cpu,int max_time,int iteraciones){
  
   int sockfd;
@@ -57,7 +58,7 @@ int nuevoClienteSocket(int perc_cpu,int max_time,int iteraciones){
   rc = write(sockfd, &iteracionesCliente, 5);     // 10 numero de caracteres escritos
   read(sockfd, &ch, 1);       
   close(sockfd);
-  printf ( "\n Nuevo Cliente  CPU= %d , Tiempo= %d\n", perc_cpu,max_time );
+  printf ( "\n Nuevo Cliente  CPU Burst= %d%% , Tiempo= %d[seg]\n", perc_cpu,max_time );
   return 0;
 }
 

@@ -14,18 +14,18 @@
 
 
 
-// Constantes
+
 
 //Variable Globales
-pthread_attr_t attr;
-pthread_t administradorProcesos; /* adm Procesos */
-pthread_t infoProcesos;
-pthread_t monitorProcesos;
-pthread_t conexionSocket;
 
+pthread_attr_t attr;
+ /* adm Procesos */
+pthread_t conexionSocket;
 
 sigset_t myset;
 
+/*Descripción.- Utilizado para la terminación del programa. 
+Imprime la información compilada de todos los procesos clientes*/
 static void sig_handler(int signo)
 {
 	resumenGlobal();
@@ -33,7 +33,8 @@ static void sig_handler(int signo)
 	exit(EXIT_SUCCESS);
 }
 
-
+/*Descripción.- Proceso utilizado para la creación de un proceso cliente, 
+cuando se ecucha una conexión en el servidor de socket*/
 void *nuevoCliente(void * param){
 	int * parametros=(int *)param;
 	int client_sockfd=parametros[0];
@@ -65,7 +66,7 @@ void *nuevoCliente(void * param){
 	close(client_sockfd);
 
 }
-
+/*Descripción.- Socket de escucha de procesos clientes*/
 void* abrirSocket(){
 	//Declarar variables de proceso.
 	int server_sockfd, client_sockfd;

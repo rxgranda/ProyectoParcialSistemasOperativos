@@ -7,11 +7,13 @@
 
 sigset_t myset;
 
+/*Descripción.-Manejador de Señales*/
 static void sig_handler(int signo)
 {
 	if (signo == SIGUSR1)
 		(void) sigsuspend(&myset);
 }
+
 
 int  main(int argc, char *argv[])
 {

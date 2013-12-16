@@ -1,3 +1,4 @@
+/*Descripción.- Estructura dinámica utilizada para la implementación de colas de procesos activos y suspendidos*/
 //Fuente: http://happybearsoftware.com/implementing-a-dynamic-array.html
 // vector.c
 

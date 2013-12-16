@@ -3,6 +3,6 @@
 
 	void resumenGlobal();
 	int resumenProceso(int pid, float cpu);
-	int registrarProceso(int opt,int pid);
+	int registrarCambioEstadoProceso(int opt,int pid);
 
 #endif
